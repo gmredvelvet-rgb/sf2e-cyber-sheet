@@ -1,0 +1,137 @@
+<div class="tab actions actions-pane starfinder-actions" data-group="primary" data-tab="actions">
+    <nav class="actions-nav sub-nav cyber-nav" data-group="actions-tabs">
+        <a class="tab cyber-tab" data-tab="encounter" data-group="actions-tabs">
+            <span class="neon-glow">{{localize "PF2E.TabActionsEncounterLabel"}}</span>
+        </a>
+        <a class="tab cyber-tab" data-tab="exploration" data-group="actions-tabs">
+            <span class="neon-glow">{{localize "PF2E.TabActionsExplorationLabel"}}</span>
+        </a>
+        <a class="tab cyber-tab" data-tab="downtime" data-group="actions-tabs">
+            <span class="neon-glow">{{localize "PF2E.TabActionsDowntimeLabel"}}</span>
+        </a>
+    </nav>
+
+    <div class="actions-container tab-content cyber-container">
+        <div class="actions-tabs-wrapper">
+            <section class="actions-panels cyber-panels">
+                <section class="actions-panel tab major cyber-panel" data-tab="encounter" data-group="actions-tabs">
+                    {{#if toggles.actions}}{{> (resolvePath "templates/actors/partials/toggles.hbs") toggles=toggles.actions}}{{/if}}
+
+                    <header class="cyber-header">
+                        <h3 class="neon-title">{{localize "PF2E.Actor.Attacks"}}</h3>
+                        {{#if inventory.hasStowedWeapons}}
+                            <button
+                                type="button"
+                                class="cyber-toggle {{#if systemFlags.hideStowed}}inactive{{/if}}"
+                                data-action="toggle-hide-stowed">
+                                <input type="checkbox" {{checked (not systemFlags.hideStowed)}} />
+                                <span class="neon-text">{{localize "PF2E.CarryType.stowed"}}</span>
+                            </button>
+                        {{/if}}
+                    </header>
+
+                    {{#if elementalBlasts}}
+                        {{!-- ELEMENTAL BLASTS --}}
+                        <ol class="actions-list directory-list elemental-blasts cyber-list" data-elemental-blasts>
+                            {{#each elementalBlasts as |blast|}}
+                                {{> (resolvePath "templates/actors/character/partials/elemental-blast.hbs") action=blast}}
+                            {{/each}}
+                        </ol>
+                    {{/if}}
+
+                    <ol class="actions-list item-list directory-list strikes-list cyber-strikes" data-strikes>
+                        {{#each data.actions as |strike ai|}}
+                            {{> (resolvePath "templates/actors/character/partials/strike.hbs") action=strike index=ai}}
+                        {{/each}}
+                    </ol>
+
+                    {{#each actions.encounter as |section sid|}}
+                        <header class="cyber-header">
+                            <h4 class="neon-title">{{section.label}}</h4>
+                            {{#if @root.options.editable}}
+                                <div class="cyber-controls">
+                                    <button type="button" class="cyber-btn" data-action="create-item" data-type="action" data-action-type="{{sid}}">
+                                        <i class="fa-solid fa-fw fa-plus neon-icon"></i>{{localize "PF2E.CreateActionTitle"}}
+                                    </button>
+                                    <button type="button" class="cyber-btn" data-action="browse-abilities" data-action-type="{{sid}}">
+                                        <i class="fa-solid fa-fw fa-search neon-icon"></i>{{localize "PF2E.BrowseLabel"}}
+                                    </button>
+                                </div>
+                            {{/if}}
+                        </header>
+
+                        <ol class="actions-list item-list directory-list cyber-list">
+                            {{#each section.actions as |action|}}
+                                {{> (resolvePath "templates/actors/partials/action.hbs") action=action}}
+                            {{/each}}
+                        </ol>
+                    {{/each}}
+                </section>
+
+                <section class="actions-panel tab major cyber-panel" data-tab="exploration" data-group="actions-tabs">
+                    {{!-- Active exploration activities are only shown if one exists --}}
+                    {{#if actions.exploration.active}}
+                        <header class="cyber-header">
+                            <h3 class="neon-title">{{localize "PF2E.Actor.Character.ActiveHeader"}}</h3>
+                            {{#if @root.options.editable}}
+                                <div class="cyber-controls">
+                                    <button type="button" class="cyber-btn danger" data-action="clear-exploration">
+                                        <i class="fa-solid fa-fw fa-times neon-icon"></i>{{localize "PF2E.Actor.Character.Clear"}}
+                                    </button>
+                                </div>
+                            {{/if}}
+                        </header>
+
+                        <ol class="actions-list item-list directory-list cyber-list">
+                            {{#each actions.exploration.active as |action|}}
+                                {{> (resolvePath "templates/actors/partials/action.hbs") action=action}}
+                            {{/each}}
+                        </ol>
+                    {{/if}}
+
+                    <header class="cyber-header">
+                        <h3 class="neon-title">{{localize "PF2E.ActionsActionsHeader"}}</h3>
+                        {{#if @root.editable}}
+                            <div class="cyber-controls">
+                                <button type="button" class="cyber-btn" data-action="create-item" data-type="action" data-action-type="free" data-traits="exploration">
+                                    <i class="fa-solid fa-fw fa-plus neon-icon"></i>{{localize "PF2E.CreateActionTitle"}}
+                                </button>
+                                <button type="button" class="cyber-btn" data-action="browse-abilities" data-action-trait="exploration">
+                                    <i class="fa-solid fa-fw fa-search neon-icon"></i>{{localize "PF2E.BrowseLabel"}}
+                                </button>
+                            </div>
+                        {{/if}}
+                    </header>
+
+                    <ol class="actions-list item-list directory-list cyber-list">
+                        {{#each actions.exploration.other as |action|}}
+                            {{> (resolvePath "templates/actors/partials/action.hbs") action=action}}
+                        {{/each}}
+                    </ol>
+                </section>
+
+                <section class="actions-panel tab major cyber-panel" data-tab="downtime" data-group="actions-tabs">
+                    <header class="cyber-header">
+                        <h3 class="neon-title">{{localize "PF2E.ActionsActionsHeader"}}</h3>
+                        {{#if @root.editable}}
+                            <div class="cyber-controls">
+                                <button type="button" class="cyber-btn" data-action="create-item" data-type="action" data-action-type="free" data-traits="downtime">
+                                    <i class="fa-solid fa-fw fa-plus neon-icon"></i>{{localize "PF2E.CreateActionTitle"}}
+                                </button>
+                                <button type="button" class="cyber-btn" data-action="browse-abilities" data-action-trait="downtime">
+                                    <i class="fa-solid fa-fw fa-search neon-icon"></i>{{localize "PF2E.BrowseLabel"}}
+                                </button>
+                            </div>
+                        {{/if}}
+                    </header>
+
+                    <ol class="actions-list item-list directory-list cyber-list">
+                        {{#each actions.downtime as |action aid|}}
+                            {{> (resolvePath "templates/actors/partials/action.hbs") action=action}}
+                        {{/each}}
+                    </ol>
+                </section>
+            </section>
+        </div>
+    </div>
+</div>

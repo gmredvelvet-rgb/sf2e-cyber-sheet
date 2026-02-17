@@ -1,0 +1,33 @@
+{
+  "id": "sf2e-cyber-sheet",
+  "title": "Starfinder 2e Cyberpunk UI",
+  "description": "Modificación visual y funcional para SF2e.",
+  "version": "1.0.0",
+  "compatibility": {
+    "minimum": "12",
+    "verified": "12"
+  },
+  "authors": [
+    {
+      "name": "Julio Cesar Ojeda (GM Red Velvet)"
+    }
+  ],
+  "styles": [
+    "css/sf2e.css"
+  ],
+  "esmodules": [
+    "sf2e-cyber-ui.js"
+  ],
+  "relationships": {
+    "systems": [
+      {
+        "id": "sf2e",
+        "type": "system",
+        "manifest": "../files de prueba/system.json"
+      }
+    ]
+  },
+  "url": "",
+  "manifest": "",
+  "download": ""
+}
