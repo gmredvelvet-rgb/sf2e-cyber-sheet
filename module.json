@@ -16,7 +16,8 @@
     "css/sf2e.css"
   ],
   "esmodules": [
-    "sf2e-cyber-ui.js"
+    "sf2e-cyber-ui.js",
+    "override-init.js"
   ],
   "relationships": {
     "systems": [
