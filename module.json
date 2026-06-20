@@ -17,7 +17,8 @@
   ],
   "esmodules": [
     "sf2e-cyber-ui.js",
-    "override-init.js"
+    "override-init.js",
+    "scripts/hologram-animator.js"
   ],
   "relationships": {
     "systems": [

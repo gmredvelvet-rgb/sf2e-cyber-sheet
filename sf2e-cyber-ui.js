@@ -1,47 +1,21 @@
-// Registra la hoja personalizada y desregistra la del sistema base
-export function registerSheetOverride() {
-    // Espera a que el sistema esté cargado
-    Hooks.once('setup', () => {
-        // El sistema base es 'sf2e', la hoja base suele ser 'CharacterSheetPF2e'
-        const systemId = 'sf2e';
-        const actorType = 'character';
-        const sheetClass = 'sf2e-cyber-sheet';
-
-        // Desregistra la hoja base
-        const system = game.systems.get(systemId);
-        if (system?.entityTypes?.Actor) {
-            // Para Foundry VTT v10+
-            Actors.unregisterSheet(systemId, system.sheets.Actor[actorType]);
-        } else {
-            // Fallback para versiones anteriores
-            Actors.unregisterSheet(systemId, Actor.sheetClasses[actorType]);
-        }
-
-        // Registra la hoja personalizada
-        Actors.registerSheet(systemId, class extends ActorSheet {
-            static get defaultOptions() {
-                return mergeObject(super.defaultOptions, {
-                    classes: [sheetClass, ...super.defaultOptions.classes],
-                    template: 'modules/sf2e-cyber-sheet/templates/actors/character/sheet.hbs',
-                    width: 800,
-                    height: 800
-                });
-            }
-        }, { types: [actorType], makeDefault: true });
-    });
-}
-console.log("SF2e Cyber Sheet | Cargando módulo...");
+/**
+ * SF2E Cyber Sheet — Inicialización del módulo
+ *
+ * NO registramos ni reemplazamos hojas del sistema sf2e.
+ * El módulo opera puramente por CSS (sf2e.css) y el animador
+ * holográfico (scripts/hologram-animator.js).
+ *
+ * La clase sf-cyber-sheet sobre el form y sf-cyber-ui sobre el body
+ * son los únicos puntos de entrada CSS del módulo.
+ */
 
 Hooks.once('ready', () => {
-    console.log("SF2e Cyber Sheet | Inicializando interfaz global...");
-    // Añade una clase al cuerpo de Foundry para permitir estilos globales
+    // Marca el body para que los selectores CSS globales del módulo
+    // (body.sf-cyber-ui .window-app ...) solo afecten sesiones con el módulo activo.
     document.body.classList.add('sf-cyber-ui');
+    console.log('SF2e Cyber Sheet | Módulo activo.');
 });
 
-Hooks.on('renderActorSheet', (app, html, data) => {
-    console.log("SF2e Cyber Sheet | Inyectando estilos a la hoja de personaje");
-    // Esto le dice a la ficha: "usa los estilos de mi módulo"
-    if (html && html[0]) {
-        html[0].classList.add('sf-cyber-sheet');
-    }
-});
+// hologram-animator.js ya registra su propio hook renderActorSheet
+// que añade sf-cyber-sheet al html[0].
+// No duplicamos ese hook aquí.
