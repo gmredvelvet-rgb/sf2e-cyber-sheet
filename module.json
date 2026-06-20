@@ -13,13 +13,16 @@
     }
   ],
   "styles": [
-    "css/sf2e.css"
+    "css/sf2e.css",
+    "css/neural-command.css"
   ],
   "esmodules": [
     "sf2e-cyber-ui.js",
     "override-init.js",
-    "scripts/hologram-animator.js"
+    "scripts/hologram-animator.js",
+    "scripts/sheet-effects.js"
   ],
+  "socket": true,
   "relationships": {
     "systems": [
       {

@@ -1,15 +1,22 @@
 /**
- * SF2E Cyber Sheet — Hologram Animator
+ * SF2E Cyber Sheet — Hologram Animator + Audio
  *
- * Secuencia exacta:
- *  1. open.webm   → esquina inferior-izquierda (reloj/mano)
- *  2. Al terminar: la ficha emerge desde abajo (clip-path) + idle.webm comienza SIMULTÁNEAMENTE
- *  3. idle.webm   → loop en esquina mientras la ficha está abierta
- *  4. Al cerrar   → la ficha colapsa + close.webm en esquina
+ * Secuencia de apertura:
+ *  1. open.webm   → esquina inferior-izquierda
+ *  2. La ficha emerge (clip-path) cuando quedan EMERGE_BEFORE_MS del video
+ *  3. sheetaudio.mp3 → loop ambiental mientras la hoja está activa
+ *  4. Al terminar open.webm → idle.webm en esquina (loop)
+ *
+ * Secuencia de cierre:
+ *  1. Detener idle + audio ambiental (fade-out)
+ *  2. Colapso visual de la ventana
+ *  3. origClose() elimina el DOM
+ *  4. close.webm en esquina
  */
 
 const MODULE_ID        = 'sf2e-cyber-sheet';
 const IMG_BASE         = `modules/${MODULE_ID}/assets/images`;
+const SND_BASE         = `modules/${MODULE_ID}/assets/sounds`;
 const EMERGE_MS        = 1150;   // debe coincidir con la duración CSS (1.1s)
 const COLLAPSE_MS      = 700;    // debe coincidir con la duración CSS (0.65s)
 const EMERGE_BEFORE_MS = 3500;   // la hoja emerge este tiempo ANTES de que termine open.webm
@@ -25,7 +32,6 @@ function getWindowEl(app) {
 
 /**
  * Crea un <video> fijo en la esquina inferior-izquierda.
- * Tamaño natural, sin crop.
  */
 function cornerVideo(src, loop = false) {
     const wrap = document.createElement('div');
@@ -69,9 +75,9 @@ function cornerVideo(src, loop = false) {
 /** Centra la ventana en el área visible (excluye la barra izquierda de Foundry). */
 function centerWindow(app, windowEl) {
     try {
-        const leftBar = 76;                          // ancho de la barra izquierda de herramientas
+        const leftBar = 76;
         const vpW     = window.innerWidth  - leftBar;
-        const vpH     = window.innerHeight - 80;    // descontar barra superior + inferior
+        const vpH     = window.innerHeight - 80;
         const winW    = windowEl.offsetWidth  || 600;
         const winH    = windowEl.offsetHeight || 700;
         app.setPosition({
@@ -83,8 +89,54 @@ function centerWindow(app, windowEl) {
     }
 }
 
-// ── Estado global del idle overlay ───────────────────────────────────────
-let _idleWrap = null;
+// ── Estado global ─────────────────────────────────────────────────────────
+let _idleWrap   = null;
+let _sheetAudio = null;
+let _clickAudio = null;
+
+// ── Audio helpers ──────────────────────────────────────────────────────────
+
+function startSheetAudio() {
+    if (_sheetAudio) return;
+    const audio = new Audio(`${SND_BASE}/sheetaudio.mp3`);
+    audio.loop   = true;
+    audio.volume = 0;
+    _sheetAudio  = audio;
+    audio.play().catch(() => {});
+
+    // Fade-in suave en 1.2 s
+    const target = 0.28;
+    const step   = target / 24;
+    const fadeIn = setInterval(() => {
+        if (!_sheetAudio || _sheetAudio !== audio) { clearInterval(fadeIn); return; }
+        audio.volume = Math.min(audio.volume + step, target);
+        if (audio.volume >= target) clearInterval(fadeIn);
+    }, 50);
+}
+
+function stopSheetAudio() {
+    if (!_sheetAudio) return;
+    const audio = _sheetAudio;
+    _sheetAudio  = null;
+
+    // Fade-out en 0.6 s y luego detener
+    const fadeOut = setInterval(() => {
+        audio.volume = Math.max(0, audio.volume - 0.05);
+        if (audio.volume <= 0) {
+            clearInterval(fadeOut);
+            audio.pause();
+        }
+    }, 30);
+}
+
+function playClickSound() {
+    if (!_clickAudio) {
+        _clickAudio = new Audio(`${SND_BASE}/click.mp3`);
+        _clickAudio.volume = 0.60;
+    }
+    _clickAudio.currentTime = 0;
+    _clickAudio.play().catch(() => {});
+}
 
 // ── Open sequence ─────────────────────────────────────────────────────────
 
@@ -92,14 +144,13 @@ async function openHologram(app, windowEl) {
     if (windowEl.dataset.holoState) return;
     windowEl.dataset.holoState = 'opening';
 
-    // Ocultar la ventana (opacity:0 no rompe el layout)
     windowEl.classList.add('sf-holo-init');
 
     // 1 ─ Reproducir open.webm en la esquina
     const { wrap: openWrap, vid: openVid, promise: openDone } = cornerVideo(`${IMG_BASE}/open.webm`);
     document.body.appendChild(openWrap);
 
-    // 2 ─ Esperar hasta que queden EMERGE_BEFORE_MS ms del video (no hasta que termine)
+    // 2 ─ Esperar hasta EMERGE_BEFORE_MS antes del final del video
     await new Promise(resolve => {
         let fired = false;
         function schedule() {
@@ -109,19 +160,19 @@ async function openHologram(app, windowEl) {
             const waitMs  = Math.max(0, totalMs - EMERGE_BEFORE_MS);
             setTimeout(resolve, waitMs);
         }
-        if (openVid.readyState >= 1) {   // metadata ya cargada
+        if (openVid.readyState >= 1) {
             schedule();
         } else {
             openVid.addEventListener('loadedmetadata', schedule, { once: true });
             openVid.addEventListener('error',          schedule, { once: true });
-            setTimeout(schedule, 2000);  // fallback si metadata tarda demasiado
+            setTimeout(schedule, 2000);
         }
     });
 
     // 3 ─ Centrar la ventana ANTES de revelarla
     centerWindow(app, windowEl);
 
-    // 4 ─ Emerge (open.webm sigue corriendo en la esquina)
+    // 4 ─ Emerge
     windowEl.classList.remove('sf-holo-init');
     windowEl.classList.add('sf-holo-emerge');
 
@@ -131,11 +182,14 @@ async function openHologram(app, windowEl) {
     windowEl.classList.add('sf-holo-active');
     windowEl.dataset.holoState = 'idle';
 
-    // 6 ─ Esperar que open.webm termine COMPLETAMENTE antes de arrancar idle
+    // 6 ─ Arrancar audio ambiental
+    startSheetAudio();
+
+    // 7 ─ Esperar que open.webm termine COMPLETAMENTE antes de arrancar idle
     await openDone;
     openWrap.remove();
 
-    // Guardia: si el usuario cerró la hoja mientras open.webm corría, no arrancar idle
+    // Guardia: no arrancar idle si la hoja ya se cerró
     if (!_idleWrap && windowEl.isConnected && windowEl.dataset.holoState === 'idle') {
         const { wrap: iw } = cornerVideo(`${IMG_BASE}/idle.webm`, true);
         _idleWrap = iw;
@@ -146,16 +200,15 @@ async function openHologram(app, windowEl) {
 // ── Close sequence ────────────────────────────────────────────────────────
 
 async function closeHologram(windowEl) {
-    // Detener idle
+    // Detener idle y audio inmediatamente
     if (_idleWrap) { _idleWrap.remove(); _idleWrap = null; }
+    stopSheetAudio();
 
     // Colapsar la ventana
     if (windowEl) {
         windowEl.classList.remove('sf-holo-active');
         windowEl.classList.add('sf-holo-collapse');
-
         await new Promise(r => setTimeout(r, COLLAPSE_MS));
-
         windowEl.style.visibility = 'hidden';
     }
     // close.webm se lanza DESPUÉS de origClose (ver hook abajo)
@@ -171,7 +224,21 @@ Hooks.on('renderActorSheet', (app, html, _data) => {
 
     html[0]?.classList.add('sf-cyber-sheet');
 
-    // Parchar close() una sola vez por instancia
+    // ── Sonido de click en botones/links de la hoja ──────────────────────
+    if (!app._sfClickListenerAdded) {
+        app._sfClickListenerAdded = true;
+        windowEl.addEventListener('click', (e) => {
+            if (e.target.closest(
+                'button, a[data-action], .rollable, [data-action], ' +
+                '.item-control, .trait-tag, .action-glyph, .strike-damage, ' +
+                '.tag[data-slug], .cyber-btn, nav.tabs .item'
+            )) {
+                playClickSound();
+            }
+        });
+    }
+
+    // ── Parchar close() una sola vez por instancia ───────────────────────
     if (!app._holoPatched) {
         app._holoPatched = true;
         const origClose = app.close.bind(app);
@@ -192,7 +259,7 @@ Hooks.on('renderActorSheet', (app, html, _data) => {
         };
     }
 
-    // Solo en el primer render (no en re-renders por cambio de datos)
+    // Solo en el primer render
     if (!windowEl.dataset.holoState) {
         openHologram(app, windowEl);
     }

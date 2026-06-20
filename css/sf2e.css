@@ -104,6 +104,7 @@
   /* Apuntamos a los botones nativos de PF2e dentro de tu hoja Cyber */
   .sf-cyber-sheet .button-group .tag,
   .sf-cyber-sheet .button-group .use-action,
+  .sf-cyber-sheet .auxiliary-actions .use-action,
   .sf-cyber-sheet .tags .tag,
   .sf-cyber-sheet .variant-strike {
     /* 1. Dimensiones y Centrado */
@@ -133,6 +134,7 @@
   /* Estado Hover: Brillo sin movimiento */
   .sf-cyber-sheet .button-group .tag:hover,
   .sf-cyber-sheet .button-group .use-action:hover,
+  .sf-cyber-sheet .auxiliary-actions .use-action:hover,
   .sf-cyber-sheet .tags .tag:hover,
   .sf-cyber-sheet .variant-strike:hover {
     background: rgba(0, 255, 255, 0.25) !important;
@@ -154,7 +156,8 @@
   /* Asegurar que el contenedor sea una fila y no colapse */
   .sf-cyber-sheet .button-group,
   .sf-cyber-sheet .cyber-controls,
-  .sf-cyber-sheet .tags {
+  .sf-cyber-sheet .tags,
+  .sf-cyber-sheet .auxiliary-actions {
     display: flex !important;
     flex-direction: row !important;
     flex-wrap: nowrap !important; /* Mantiene todo en una lÃ­nea */
@@ -2917,3 +2920,1116 @@ body.sf-cyber-ui #sidebar button:hover {
         box-shadow : 0 0 220px 110px rgba(0, 150, 255, 0.95);
     }
 }
+
+/* ================================================================
+   SF2E SCI-FI ENHANCED — v2 Visual Overhaul
+   ================================================================ */
+
+/* ── Corner-bracket panels (pure CSS, sin pseudo-elementos extra) ── */
+.sf-cyber-subsection,
+.sf-cyber-attributes {
+    background-image:
+        /* TL horizontal */ linear-gradient(to right,  #00cfff, #00cfff) ,
+        /* TL vertical   */ linear-gradient(to bottom, #00cfff, #00cfff) ,
+        /* TR horizontal */ linear-gradient(to left,   #00cfff, #00cfff) ,
+        /* TR vertical   */ linear-gradient(to bottom, #00cfff, #00cfff) ,
+        /* BL horizontal */ linear-gradient(to right,  #00cfff, #00cfff) ,
+        /* BL vertical   */ linear-gradient(to top,    #00cfff, #00cfff) ,
+        /* BR horizontal */ linear-gradient(to left,   #00cfff, #00cfff) ,
+        /* BR vertical   */ linear-gradient(to top,    #00cfff, #00cfff) !important;
+    background-size:
+        14px 2px, 2px 14px,
+        14px 2px, 2px 14px,
+        14px 2px, 2px 14px,
+        14px 2px, 2px 14px !important;
+    background-position:
+        top    left,  top    left,
+        top    right, top    right,
+        bottom left,  bottom left,
+        bottom right, bottom right !important;
+    background-repeat: no-repeat !important;
+    border: 1px solid rgba(0, 207, 255, 0.22) !important;
+}
+
+/* ── Section headers — scanline accent bar ── */
+.sf-cyber-subsection header,
+.sf-cyber-attributes header {
+    position: relative;
+    overflow: hidden;
+    padding-bottom: 6px !important;
+    margin-bottom: 10px !important;
+    border-bottom: 1px solid rgba(0,207,255,0.20) !important;
+}
+.sf-cyber-subsection header::after,
+.sf-cyber-attributes header::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, #00cfff 0%, #7700ff 50%, transparent 100%);
+    opacity: 0.55;
+}
+
+.sf-cyber-subsection header span,
+.sf-cyber-attributes header span {
+    font-family: 'Racing Sans One', sans-serif !important;
+    font-size: 0.82em !important;
+    letter-spacing: 2px !important;
+    text-transform: uppercase !important;
+    color: #00cfff !important;
+    text-shadow: 0 0 10px rgba(0,207,255,0.70), 0 0 20px rgba(0,207,255,0.30) !important;
+}
+
+/* ── Attribute modifier cards — per-stat neon palette ── */
+
+/* STR – Amber */
+.sf-cyber-attributes .attribute.str,
+.sf-cyber-attributes .attribute[data-key="str"],
+.sf-cyber-attributes .attribute[data-attribute="str"] {
+    border-color: #ff7700 !important;
+    background: linear-gradient(145deg, rgba(255,119,0,0.08) 0%, rgba(0,0,0,0) 100%) !important;
+    box-shadow: 0 0 12px rgba(255,119,0,0.22), inset 0 0 10px rgba(255,119,0,0.05) !important;
+}
+.sf-cyber-attributes .attribute.str .abbreviation span,
+.sf-cyber-attributes .attribute[data-key="str"] .abbreviation span,
+.sf-cyber-attributes .attribute[data-key="str"] [class*="abbreviation"] {
+    color: #ff7700 !important;
+    text-shadow: 0 0 10px rgba(255,119,0,0.70) !important;
+}
+.sf-cyber-attributes .attribute.str .modifier,
+.sf-cyber-attributes .attribute[data-key="str"] .modifier,
+.sf-cyber-attributes .attribute.str .value,
+.sf-cyber-attributes .attribute[data-key="str"] .value {
+    color: #ff9933 !important;
+    text-shadow: 0 0 14px rgba(255,119,0,0.55) !important;
+}
+.sf-cyber-attributes .attribute.str .attribute-label,
+.sf-cyber-attributes .attribute[data-key="str"] .attribute-label,
+.sf-cyber-attributes .attribute.str [class*="label"],
+.sf-cyber-attributes .attribute[data-key="str"] [class*="label"] {
+    color: #ff7700 !important;
+    text-shadow: 0 0 6px rgba(255,119,0,0.50) !important;
+}
+
+/* DEX – Lime Green */
+.sf-cyber-attributes .attribute.dex,
+.sf-cyber-attributes .attribute[data-key="dex"],
+.sf-cyber-attributes .attribute[data-attribute="dex"] {
+    border-color: #00ff88 !important;
+    background: linear-gradient(145deg, rgba(0,255,136,0.08) 0%, rgba(0,0,0,0) 100%) !important;
+    box-shadow: 0 0 12px rgba(0,255,136,0.22), inset 0 0 10px rgba(0,255,136,0.05) !important;
+}
+.sf-cyber-attributes .attribute.dex .abbreviation span,
+.sf-cyber-attributes .attribute[data-key="dex"] .abbreviation span,
+.sf-cyber-attributes .attribute[data-key="dex"] [class*="abbreviation"] {
+    color: #00ff88 !important;
+    text-shadow: 0 0 10px rgba(0,255,136,0.70) !important;
+}
+.sf-cyber-attributes .attribute.dex .modifier,
+.sf-cyber-attributes .attribute[data-key="dex"] .modifier,
+.sf-cyber-attributes .attribute.dex .value,
+.sf-cyber-attributes .attribute[data-key="dex"] .value {
+    color: #33ffaa !important;
+    text-shadow: 0 0 14px rgba(0,255,136,0.55) !important;
+}
+.sf-cyber-attributes .attribute.dex .attribute-label,
+.sf-cyber-attributes .attribute[data-key="dex"] .attribute-label,
+.sf-cyber-attributes .attribute.dex [class*="label"],
+.sf-cyber-attributes .attribute[data-key="dex"] [class*="label"] {
+    color: #00ff88 !important;
+    text-shadow: 0 0 6px rgba(0,255,136,0.50) !important;
+}
+
+/* CON – Cyan */
+.sf-cyber-attributes .attribute.con,
+.sf-cyber-attributes .attribute[data-key="con"],
+.sf-cyber-attributes .attribute[data-attribute="con"] {
+    border-color: #00ccff !important;
+    background: linear-gradient(145deg, rgba(0,204,255,0.08) 0%, rgba(0,0,0,0) 100%) !important;
+    box-shadow: 0 0 12px rgba(0,204,255,0.22), inset 0 0 10px rgba(0,204,255,0.05) !important;
+}
+.sf-cyber-attributes .attribute.con .abbreviation span,
+.sf-cyber-attributes .attribute[data-key="con"] .abbreviation span,
+.sf-cyber-attributes .attribute[data-key="con"] [class*="abbreviation"] {
+    color: #00ccff !important;
+    text-shadow: 0 0 10px rgba(0,204,255,0.70) !important;
+}
+.sf-cyber-attributes .attribute.con .modifier,
+.sf-cyber-attributes .attribute[data-key="con"] .modifier,
+.sf-cyber-attributes .attribute.con .value,
+.sf-cyber-attributes .attribute[data-key="con"] .value {
+    color: #33ddff !important;
+    text-shadow: 0 0 14px rgba(0,204,255,0.55) !important;
+}
+.sf-cyber-attributes .attribute.con .attribute-label,
+.sf-cyber-attributes .attribute[data-key="con"] .attribute-label,
+.sf-cyber-attributes .attribute.con [class*="label"],
+.sf-cyber-attributes .attribute[data-key="con"] [class*="label"] {
+    color: #00ccff !important;
+    text-shadow: 0 0 6px rgba(0,204,255,0.50) !important;
+}
+
+/* INT – Violet */
+.sf-cyber-attributes .attribute.int,
+.sf-cyber-attributes .attribute[data-key="int"],
+.sf-cyber-attributes .attribute[data-attribute="int"] {
+    border-color: #8866ff !important;
+    background: linear-gradient(145deg, rgba(136,102,255,0.08) 0%, rgba(0,0,0,0) 100%) !important;
+    box-shadow: 0 0 12px rgba(136,102,255,0.22), inset 0 0 10px rgba(136,102,255,0.05) !important;
+}
+.sf-cyber-attributes .attribute.int .abbreviation span,
+.sf-cyber-attributes .attribute[data-key="int"] .abbreviation span,
+.sf-cyber-attributes .attribute[data-key="int"] [class*="abbreviation"] {
+    color: #aa88ff !important;
+    text-shadow: 0 0 10px rgba(136,102,255,0.70) !important;
+}
+.sf-cyber-attributes .attribute.int .modifier,
+.sf-cyber-attributes .attribute[data-key="int"] .modifier,
+.sf-cyber-attributes .attribute.int .value,
+.sf-cyber-attributes .attribute[data-key="int"] .value {
+    color: #bb99ff !important;
+    text-shadow: 0 0 14px rgba(136,102,255,0.55) !important;
+}
+.sf-cyber-attributes .attribute.int .attribute-label,
+.sf-cyber-attributes .attribute[data-key="int"] .attribute-label,
+.sf-cyber-attributes .attribute.int [class*="label"],
+.sf-cyber-attributes .attribute[data-key="int"] [class*="label"] {
+    color: #aa88ff !important;
+    text-shadow: 0 0 6px rgba(136,102,255,0.50) !important;
+}
+
+/* WIS – Gold */
+.sf-cyber-attributes .attribute.wis,
+.sf-cyber-attributes .attribute[data-key="wis"],
+.sf-cyber-attributes .attribute[data-attribute="wis"] {
+    border-color: #ffcc00 !important;
+    background: linear-gradient(145deg, rgba(255,204,0,0.08) 0%, rgba(0,0,0,0) 100%) !important;
+    box-shadow: 0 0 12px rgba(255,204,0,0.22), inset 0 0 10px rgba(255,204,0,0.05) !important;
+}
+.sf-cyber-attributes .attribute.wis .abbreviation span,
+.sf-cyber-attributes .attribute[data-key="wis"] .abbreviation span,
+.sf-cyber-attributes .attribute[data-key="wis"] [class*="abbreviation"] {
+    color: #ffcc00 !important;
+    text-shadow: 0 0 10px rgba(255,204,0,0.70) !important;
+}
+.sf-cyber-attributes .attribute.wis .modifier,
+.sf-cyber-attributes .attribute[data-key="wis"] .modifier,
+.sf-cyber-attributes .attribute.wis .value,
+.sf-cyber-attributes .attribute[data-key="wis"] .value {
+    color: #ffd633 !important;
+    text-shadow: 0 0 14px rgba(255,204,0,0.55) !important;
+}
+.sf-cyber-attributes .attribute.wis .attribute-label,
+.sf-cyber-attributes .attribute[data-key="wis"] .attribute-label,
+.sf-cyber-attributes .attribute.wis [class*="label"],
+.sf-cyber-attributes .attribute[data-key="wis"] [class*="label"] {
+    color: #ffcc00 !important;
+    text-shadow: 0 0 6px rgba(255,204,0,0.50) !important;
+}
+
+/* CHA – Hot Pink */
+.sf-cyber-attributes .attribute.cha,
+.sf-cyber-attributes .attribute[data-key="cha"],
+.sf-cyber-attributes .attribute[data-attribute="cha"] {
+    border-color: #ff0088 !important;
+    background: linear-gradient(145deg, rgba(255,0,136,0.08) 0%, rgba(0,0,0,0) 100%) !important;
+    box-shadow: 0 0 12px rgba(255,0,136,0.22), inset 0 0 10px rgba(255,0,136,0.05) !important;
+}
+.sf-cyber-attributes .attribute.cha .abbreviation span,
+.sf-cyber-attributes .attribute[data-key="cha"] .abbreviation span,
+.sf-cyber-attributes .attribute[data-key="cha"] [class*="abbreviation"] {
+    color: #ff44aa !important;
+    text-shadow: 0 0 10px rgba(255,0,136,0.70) !important;
+}
+.sf-cyber-attributes .attribute.cha .modifier,
+.sf-cyber-attributes .attribute[data-key="cha"] .modifier,
+.sf-cyber-attributes .attribute.cha .value,
+.sf-cyber-attributes .attribute[data-key="cha"] .value {
+    color: #ff66bb !important;
+    text-shadow: 0 0 14px rgba(255,0,136,0.55) !important;
+}
+.sf-cyber-attributes .attribute.cha .attribute-label,
+.sf-cyber-attributes .attribute[data-key="cha"] .attribute-label,
+.sf-cyber-attributes .attribute.cha [class*="label"],
+.sf-cyber-attributes .attribute[data-key="cha"] [class*="label"] {
+    color: #ff44aa !important;
+    text-shadow: 0 0 6px rgba(255,0,136,0.50) !important;
+}
+
+/* ── Proficiency rank tags — distinct neon colors ── */
+
+/* TRAINED – Blue */
+.sf-cyber-sheet .tag[data-slug="trained"],
+.sf-cyber-sheet .proficiency-rank[value="1"],
+.sf-cyber-sheet .rank-trained,
+.sf-cyber-sheet .pf-rank.rank-trained,
+.sf-cyber-sheet .save-proficiency.tag:is([data-slug="trained"]) {
+    background: rgba(0, 140, 255, 0.12) !important;
+    border-color: #008cff !important;
+    color: #44aaff !important;
+    text-shadow: 0 0 6px rgba(0,140,255,0.60) !important;
+    box-shadow: 0 0 6px rgba(0,140,255,0.18) !important;
+}
+
+/* EXPERT – Teal-Green */
+.sf-cyber-sheet .tag[data-slug="expert"],
+.sf-cyber-sheet .proficiency-rank[value="2"],
+.sf-cyber-sheet .rank-expert,
+.sf-cyber-sheet .pf-rank.rank-expert,
+.sf-cyber-sheet .save-proficiency.tag:is([data-slug="expert"]) {
+    background: rgba(0, 220, 180, 0.12) !important;
+    border-color: #00dcb4 !important;
+    color: #00ffcc !important;
+    text-shadow: 0 0 6px rgba(0,220,180,0.60) !important;
+    box-shadow: 0 0 6px rgba(0,220,180,0.18) !important;
+}
+
+/* MASTER – Gold */
+.sf-cyber-sheet .tag[data-slug="master"],
+.sf-cyber-sheet .proficiency-rank[value="3"],
+.sf-cyber-sheet .rank-master,
+.sf-cyber-sheet .pf-rank.rank-master {
+    background: rgba(255, 180, 0, 0.12) !important;
+    border-color: #ffb400 !important;
+    color: #ffcc44 !important;
+    text-shadow: 0 0 6px rgba(255,180,0,0.60) !important;
+    box-shadow: 0 0 6px rgba(255,180,0,0.20) !important;
+}
+
+/* LEGENDARY – Gradient shimmer (animated) */
+.sf-cyber-sheet .tag[data-slug="legendary"],
+.sf-cyber-sheet .proficiency-rank[value="4"],
+.sf-cyber-sheet .rank-legendary,
+.sf-cyber-sheet .pf-rank.rank-legendary {
+    background: linear-gradient(90deg, rgba(255,0,255,0.12), rgba(0,255,255,0.12)) !important;
+    border-color: #ff00ff !important;
+    color: #ff88ff !important;
+    text-shadow: 0 0 8px rgba(255,0,255,0.70) !important;
+    box-shadow: 0 0 8px rgba(255,0,255,0.25) !important;
+    animation: holo-shimmer 3s linear infinite !important;
+}
+
+/* ── Saves sidebar — FORT/REF/WILL neon accents ── */
+
+.sf-cyber-sheet [class*="fortitude"] .modifier,
+.sf-cyber-sheet [class*="fortitude"] .value,
+.sf-cyber-sheet [data-attribute="fortitude"] .modifier {
+    color: #ff6633 !important;
+    text-shadow: 0 0 8px rgba(255,102,51,0.55) !important;
+}
+
+.sf-cyber-sheet [class*="reflex"] .modifier,
+.sf-cyber-sheet [class*="reflex"] .value,
+.sf-cyber-sheet [data-attribute="reflex"] .modifier {
+    color: #00ff88 !important;
+    text-shadow: 0 0 8px rgba(0,255,136,0.55) !important;
+}
+
+.sf-cyber-sheet [class*="will"] .modifier,
+.sf-cyber-sheet [class*="will"] .value,
+.sf-cyber-sheet [data-attribute="will"] .modifier {
+    color: #aa88ff !important;
+    text-shadow: 0 0 8px rgba(170,136,255,0.55) !important;
+}
+
+/* ── Speed values — color by type ── */
+
+.sf-cyber-subsection .speed[class*="land"] .value,
+.sf-cyber-subsection .speed:nth-child(1) .value {
+    color: #00cfff !important;
+    text-shadow: 0 0 8px rgba(0,207,255,0.55) !important;
+}
+.sf-cyber-subsection .speed[class*="swim"] .value,
+.sf-cyber-subsection .speed:nth-child(2) .value {
+    color: #0088ff !important;
+    text-shadow: 0 0 8px rgba(0,136,255,0.55) !important;
+}
+.sf-cyber-subsection .speed[class*="climb"] .value,
+.sf-cyber-subsection .speed:nth-child(3) .value {
+    color: #ff8800 !important;
+    text-shadow: 0 0 8px rgba(255,136,0,0.55) !important;
+}
+.sf-cyber-subsection .speed[class*="fly"] .value,
+.sf-cyber-subsection .speed:nth-child(4) .value {
+    color: #aa88ff !important;
+    text-shadow: 0 0 8px rgba(170,136,255,0.55) !important;
+}
+.sf-cyber-subsection .speed[class*="burrow"] .value,
+.sf-cyber-subsection .speed:nth-child(5) .value {
+    color: #cc6600 !important;
+    text-shadow: 0 0 8px rgba(204,102,0,0.55) !important;
+}
+
+/* ── Languages — neon pills ── */
+
+.sf-cyber-subsection .tags .tag,
+.sf-cyber-subsection .tag {
+    background: rgba(0,207,255,0.07) !important;
+    border: 1px solid rgba(0,207,255,0.30) !important;
+    color: #00cfff !important;
+    text-shadow: 0 0 5px rgba(0,207,255,0.40) !important;
+    box-shadow: 0 0 4px rgba(0,207,255,0.10) !important;
+    letter-spacing: 0.5px !important;
+    transition: all 0.2s ease !important;
+}
+.sf-cyber-subsection .tags .tag:hover,
+.sf-cyber-subsection .tag:hover {
+    background: rgba(0,207,255,0.15) !important;
+    border-color: #00cfff !important;
+    box-shadow: 0 0 10px rgba(0,207,255,0.30) !important;
+}
+
+/* ── Window titlebar — stronger glow ── */
+.window-app.sf-holo-active .window-header {
+    box-shadow: 0 2px 20px rgba(0,207,255,0.20) !important;
+}
+.window-app.sf-holo-active .window-title {
+    font-size: 0.9em !important;
+    letter-spacing: 2px !important;
+}
+
+/* ── Main content border — cyan + purple gradient frame ── */
+.actor.sheet.character .window-app.sf-holo-active,
+.sf-cyber-sheet.window-app.sf-holo-active {
+    border: 1px solid transparent !important;
+    background-clip: padding-box !important;
+    box-shadow:
+        0 0  30px rgba(0,207,255,0.30),
+        0 0  80px rgba(0,207,255,0.10),
+        0 0 160px rgba(80,0,255,0.08),
+        inset 0 0 50px rgba(0,0,0,0.70) !important;
+}
+
+/* ── Trait badges — size in cyan, others in magenta ── */
+.sf-cyber-traits .tag {
+    font-size: 0.72em !important;
+    padding: 2px 8px !important;
+    border-radius: 2px !important;
+    letter-spacing: 1px !important;
+    text-transform: uppercase !important;
+}
+
+/* ── HP ring / current HP input — brighter ── */
+.sf-cyber-sheet .current-hp .value,
+.sf-cyber-sheet .current-hp input,
+.sf-cyber-sheet [class*="currentHP"] input,
+.sf-cyber-sheet [class*="current-hp"] input {
+    color: #ffffff !important;
+    text-shadow: 0 0 12px #00ffff, 0 0 25px rgba(0,207,255,0.60) !important;
+    font-family: 'Racing Sans One', sans-serif !important;
+}
+
+/* ── Max / Temp HP labels — dimmer contrast ── */
+.sf-cyber-sheet .max-hp .value,
+.sf-cyber-sheet .max-hp input,
+.sf-cyber-sheet [class*="maxHP"] input {
+    color: #88ddff !important;
+    text-shadow: 0 0 6px rgba(0,207,255,0.35) !important;
+}
+
+/* ── AC badge — vivid shield glow ── */
+.sf-cyber-sheet .armor-class .value,
+.sf-cyber-sheet .ac .value,
+.sf-cyber-sheet [class*="armorClass"] .value {
+    color: #ffffff !important;
+    text-shadow: 0 0 14px #aa55ff, 0 0 30px rgba(170,85,255,0.45) !important;
+}
+
+/* ── Section title bars (HIT POINTS, ARMOR CLASS, etc.) ── */
+.sf-cyber-sheet .sheet-sidebar header h2,
+.sf-cyber-sheet .sheet-sidebar .section-title,
+.sf-cyber-sheet .sheet-sidebar h3 {
+    font-size: 0.68em !important;
+    letter-spacing: 2.5px !important;
+    text-shadow:
+        0 0 8px rgba(0,207,255,0.70),
+        0 0 16px rgba(161,0,255,0.30) !important;
+}
+
+/* ── Animated bottom-left corner accent on the window ── */
+@keyframes sf-corner-pulse {
+    0%, 100% { opacity: 0.40; }
+    50%       { opacity: 0.85; }
+}
+
+/* ================================================================
+   HOLOGRAPHIC GLITCH EFFECTS
+   ================================================================ */
+
+/* ── Keyframes: retrato — chromatic aberration + slice ── */
+@keyframes sf-portrait-glitch {
+    0%, 84%, 100% {
+        clip-path : none;
+        transform : none;
+        filter    : saturate(1.05) brightness(0.96);
+    }
+    85% {
+        clip-path : inset(18% 0 58% 0);
+        transform : translateX(-4px);
+        filter    : saturate(3) hue-rotate(95deg) brightness(1.5);
+    }
+    85.4% {
+        clip-path : inset(55% 0 18% 0);
+        transform : translateX(4px);
+        filter    : saturate(2.5) hue-rotate(-65deg) brightness(1.3);
+    }
+    85.8% {
+        clip-path : inset(35% 0 38% 0);
+        transform : translateX(-2px) skewX(3deg);
+        filter    : saturate(2) hue-rotate(30deg);
+    }
+    86.2% {
+        clip-path : none;
+        transform : none;
+        filter    : saturate(1.05) brightness(0.96);
+    }
+}
+
+/* ── Keyframes: imagen — aberración cromática RGB ── */
+@keyframes sf-chromatic-aberration {
+    0%, 87%, 100% {
+        filter : none;
+    }
+    88% {
+        filter :
+            drop-shadow(-4px 0 0 rgba(255, 0,   0,   0.80))
+            drop-shadow( 4px 0 0 rgba(0,   255, 255, 0.80));
+    }
+    88.4% {
+        filter :
+            drop-shadow( 3px 0 0 rgba(255, 0,   255, 0.65))
+            drop-shadow(-3px 0 0 rgba(0,   255, 136, 0.65));
+    }
+    88.8% {
+        filter :
+            drop-shadow(-2px 0 0 rgba(0,   0,   255, 0.50))
+            drop-shadow( 2px 0 0 rgba(255, 255, 0,   0.50));
+    }
+    89.2% { filter : none; }
+}
+
+/* ── Keyframes: panel de datos — distorsión global ── */
+@keyframes sf-panel-glitch {
+    0%, 90%, 100% {
+        transform : none;
+        filter    : none;
+    }
+    91% {
+        transform : translateX(-3px) skewX(-0.8deg);
+        filter    : brightness(1.25) hue-rotate(15deg);
+    }
+    91.4% {
+        transform : translateX(3px) skewX(0.5deg);
+        filter    : brightness(0.80);
+    }
+    91.8% {
+        transform : none;
+        filter    : none;
+    }
+}
+
+/* ── Keyframes: campo de datos individual ── */
+@keyframes sf-data-flicker {
+    0%, 93%, 100% { opacity: 1;    color: inherit; }
+    94%           { opacity: 0.5;  filter: hue-rotate(120deg) brightness(1.4); }
+    94.4%         { opacity: 1;    filter: none; }
+    95%           { opacity: 0.75; filter: hue-rotate(-60deg); }
+    95.4%         { opacity: 1;    filter: none; }
+}
+
+/* ── Keyframes: nombre / texto de header ── */
+@keyframes sf-text-glitch {
+    0%, 88%, 100% {
+        text-shadow : inherit;
+        transform   : none;
+    }
+    89% {
+        text-shadow :
+            -3px 0 rgba(255, 0,   0,   0.85),
+             3px 0 rgba(0,   255, 255, 0.85),
+             0   0 12px rgba(0, 200, 255, 0.70);
+        transform   : skewX(-2deg) translateX(-2px);
+    }
+    89.5% {
+        text-shadow :
+             3px 0 rgba(255, 0,   255, 0.70),
+            -3px 0 rgba(0,   255, 136, 0.70),
+             0   0 8px  rgba(0, 200, 255, 0.50);
+        transform   : skewX(1.5deg) translateX(2px);
+    }
+    90% {
+        text-shadow : inherit;
+        transform   : none;
+    }
+}
+
+/* ── Keyframes: badge/trait — inversión de color ── */
+@keyframes sf-badge-glitch {
+    0%, 95%, 100% { filter: none; }
+    96%           { filter: invert(1) hue-rotate(180deg); }
+    96.3%         { filter: none; }
+}
+
+/* ── Aplicar glitch al retrato ─────────────────────────────── */
+.sf-cyber-image {
+    animation:
+        portrait-glow-pulse      3.5s ease-in-out infinite,
+        portrait-holo-flicker    9s   ease-in-out infinite,
+        sf-portrait-glitch       8s   ease-in-out infinite !important;
+}
+
+.sf-cyber-image .actor-image {
+    animation : sf-chromatic-aberration 11s ease-in-out infinite;
+}
+
+/* ── Aplicar glitch al panel de info holográfica ──────────── */
+.sf-cyber-details {
+    animation:
+        holo-flicker     8s  infinite ease-in-out,
+        sf-panel-glitch  13s infinite ease-in-out !important;
+}
+
+/* ── Campos ABCD (ancestry / background / class / deity) ─── */
+.sf-cyber-details .abcd .detail {
+    animation: sf-data-flicker 14s ease-in-out infinite;
+}
+.sf-cyber-details .abcd .detail:nth-child(2) { animation-delay: 3.5s; }
+.sf-cyber-details .abcd .detail:nth-child(3) { animation-delay: 7s;   }
+.sf-cyber-details .abcd .detail:nth-child(4) { animation-delay: 10s;  }
+
+/* ── Nombre del personaje en el header ───────────────────── */
+.actor.sheet.character .char-header h1,
+.actor.sheet.character .char-header .charname,
+.sf-cyber-sheet .character-name {
+    animation : sf-text-glitch 10s ease-in-out infinite;
+}
+
+/* ── Trait badges ─────────────────────────────────────────── */
+.sf-cyber-traits .tag {
+    animation : sf-badge-glitch 18s ease-in-out infinite;
+}
+.sf-cyber-traits .tag:nth-child(2) { animation-delay: 4s;  }
+.sf-cyber-traits .tag:nth-child(3) { animation-delay: 9s;  }
+.sf-cyber-traits .tag:nth-child(4) { animation-delay: 13s; }
+
+/* ── Escaneo holográfico extra en la ventana activa ─────── */
+.window-app.sf-holo-active::after {
+    content  : '';
+    position : absolute;
+    left     : 0;
+    right    : 0;
+    height   : 2px;
+    background : linear-gradient(
+        90deg,
+        transparent 5%,
+        rgba(0, 207, 255, 0.18) 30%,
+        rgba(161, 0,  255, 0.12) 60%,
+        transparent 95%
+    );
+    animation      : sf-holo-scanline 6s linear infinite;
+    pointer-events : none;
+    z-index        : 9999;
+    filter         : blur(0.5px);
+}
+
+@keyframes sf-holo-scanline {
+    0%   { top: -3px; }
+    100% { top: 100%; }
+}
+
+/* ================================================================
+   SHEET EFFECTS SYSTEM — injected elements from sheet-effects.js
+   ================================================================ */
+
+/* ── Resize handle — sci-fi corner drag indicator ── */
+.window-app.sf-holo-active .window-resizable-handle {
+    position  : absolute !important;
+    bottom    : 0 !important;
+    right     : 0 !important;
+    width     : 22px !important;
+    height    : 22px !important;
+    cursor    : se-resize !important;
+    z-index   : 500 !important;
+    background: transparent !important;
+    overflow  : visible !important;
+    opacity   : 0.65;
+    transition: opacity 0.2s, filter 0.2s;
+}
+.window-app.sf-holo-active .window-resizable-handle > * { display: none !important; }
+.window-app.sf-holo-active .window-resizable-handle::before {
+    content : '';
+    position: absolute;
+    bottom  : 3px;
+    right   : 3px;
+    width   : 13px;
+    height  : 13px;
+    border-right : 2px solid #00cfff;
+    border-bottom: 2px solid #00cfff;
+}
+.window-app.sf-holo-active .window-resizable-handle::after {
+    content : '';
+    position: absolute;
+    bottom  : 7px;
+    right   : 7px;
+    width   : 5px;
+    height  : 5px;
+    border-right : 1px solid rgba(0,207,255,0.60);
+    border-bottom: 1px solid rgba(0,207,255,0.60);
+}
+.window-app.sf-holo-active .window-resizable-handle:hover {
+    opacity: 1;
+    filter : drop-shadow(0 0 6px #00cfff);
+}
+
+/* ── Corner HUD ─────────────────────────────────────────────── */
+.sf-hud-corners {
+    position      : absolute;
+    inset         : 0;
+    pointer-events: none;
+    z-index       : 900;
+    overflow      : visible;
+    animation     : sf-hud-pulse 4s ease-in-out infinite;
+}
+
+@keyframes sf-hud-pulse {
+    0%, 100% { opacity: 0.70; }
+    50%       { opacity: 1.00; }
+}
+
+/* ── Radar ───────────────────────────────────────────────────── */
+.sf-radar-wrap {
+    position     : absolute;
+    bottom       : 8px;
+    right        : 4px;
+    width        : 92px;
+    pointer-events: none;
+    z-index      : 80;
+    opacity      : 0.72;
+    transition   : opacity 0.3s;
+}
+.sf-radar-wrap:hover { opacity: 1; }
+
+.sf-radar-svg {
+    display: block;
+    width  : 100%;
+    height : auto;
+}
+
+/* Radar sweep arm rotation */
+.sf-radar-sweep {
+    animation        : sfRadarSpin 4s linear infinite;
+    transform-box    : view-box;   /* rotación relativa al viewport del SVG, no al bounding-box */
+    transform-origin : 50% 50%;   /* = centro del SVG = centro del radar */
+}
+@keyframes sfRadarSpin {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(360deg); }
+}
+
+/* Radar blip blink */
+.sf-blip {
+    animation        : sfBlipPulse 2.5s ease-in-out infinite;
+    transform-origin : center;
+}
+.sf-blip-1 { animation-delay: 0.8s; }
+.sf-blip-2 { animation-delay: 1.6s; }
+@keyframes sfBlipPulse {
+    0%, 100% { opacity: 0.85; r: 2.2; }
+    50%       { opacity: 0.25; r: 1.2; }
+}
+
+.sf-radar-label {
+    text-align   : center;
+    font-family  : 'Racing Sans One', monospace;
+    font-size    : 0.55em;
+    letter-spacing: 2px;
+    color        : #00cfff;
+    text-shadow  : 0 0 6px #00cfff;
+    margin-top   : 2px;
+    opacity      : 0.75;
+}
+
+/* ── Portrait targeting reticle ──────────────────────────────── */
+.sf-reticle-wrap {
+    position      : absolute;
+    inset         : 0;
+    pointer-events: none;
+    z-index       : 10;
+    overflow      : hidden;
+}
+.sf-reticle-svg {
+    width : 100%;
+    height: 100%;
+}
+
+/* Outer ring — counter-clockwise slow rotation */
+.sf-rt-ring1 {
+    transform-origin: 100px 100px;
+    animation: sfRingOuter 22s linear infinite;
+}
+@keyframes sfRingOuter {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(-360deg); }
+}
+
+/* Inner ring — clockwise */
+.sf-rt-ring2 {
+    transform-origin: 100px 100px;
+    animation: sfRingInner 14s linear infinite;
+}
+@keyframes sfRingInner {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(360deg); }
+}
+
+/* Scanning line — sweeps top to bottom */
+.sf-rt-scan {
+    animation: sfRtScan 3.5s ease-in-out infinite;
+}
+@keyframes sfRtScan {
+    0%   { transform: translateY(0px);   opacity: 0.5; }
+    50%  { transform: translateY(80px);  opacity: 0.7; }
+    100% { transform: translateY(160px); opacity: 0.0; }
+}
+
+/* ── Hex panel backgrounds ───────────────────────────────────── */
+.sf-hex-bg {
+    position      : absolute;
+    inset         : -2px;
+    pointer-events: none;
+    z-index       : 0;
+    clip-path     : polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+    background    : rgba(0, 207, 255, 0.05);
+    filter        : drop-shadow(0 0 5px rgba(0,207,255,0.35));
+    transition    : background 0.25s, filter 0.25s;
+}
+
+/* Content above hex bg */
+.sf-cyber-attributes .attribute > *:not(.sf-hex-bg) {
+    position: relative;
+    z-index : 1;
+}
+
+/* Hex colors per stat */
+.sf-cyber-attributes .attribute.str .sf-hex-bg,
+.sf-cyber-attributes .attribute[data-key="str"] .sf-hex-bg {
+    background: rgba(255,119,0,0.07) !important;
+    filter    : drop-shadow(0 0 5px rgba(255,119,0,0.38)) !important;
+}
+.sf-cyber-attributes .attribute.dex .sf-hex-bg,
+.sf-cyber-attributes .attribute[data-key="dex"] .sf-hex-bg {
+    background: rgba(0,255,136,0.07) !important;
+    filter    : drop-shadow(0 0 5px rgba(0,255,136,0.38)) !important;
+}
+.sf-cyber-attributes .attribute.con .sf-hex-bg,
+.sf-cyber-attributes .attribute[data-key="con"] .sf-hex-bg {
+    background: rgba(0,204,255,0.07) !important;
+    filter    : drop-shadow(0 0 5px rgba(0,204,255,0.38)) !important;
+}
+.sf-cyber-attributes .attribute.int .sf-hex-bg,
+.sf-cyber-attributes .attribute[data-key="int"] .sf-hex-bg {
+    background: rgba(136,102,255,0.07) !important;
+    filter    : drop-shadow(0 0 5px rgba(136,102,255,0.38)) !important;
+}
+.sf-cyber-attributes .attribute.wis .sf-hex-bg,
+.sf-cyber-attributes .attribute[data-key="wis"] .sf-hex-bg {
+    background: rgba(255,204,0,0.07) !important;
+    filter    : drop-shadow(0 0 5px rgba(255,204,0,0.38)) !important;
+}
+.sf-cyber-attributes .attribute.cha .sf-hex-bg,
+.sf-cyber-attributes .attribute[data-key="cha"] .sf-hex-bg {
+    background: rgba(255,0,136,0.07) !important;
+    filter    : drop-shadow(0 0 5px rgba(255,0,136,0.38)) !important;
+}
+
+/* Hover brighten on hex */
+.sf-cyber-attributes .attribute:hover .sf-hex-bg {
+    background: rgba(0,207,255,0.15) !important;
+    filter    : drop-shadow(0 0 10px rgba(0,207,255,0.70)) !important;
+}
+.sf-cyber-attributes .attribute.str:hover .sf-hex-bg,
+.sf-cyber-attributes .attribute[data-key="str"]:hover .sf-hex-bg { background: rgba(255,119,0,0.15) !important; filter: drop-shadow(0 0 10px rgba(255,119,0,0.65)) !important; }
+.sf-cyber-attributes .attribute.dex:hover .sf-hex-bg,
+.sf-cyber-attributes .attribute[data-key="dex"]:hover .sf-hex-bg { background: rgba(0,255,136,0.15) !important; filter: drop-shadow(0 0 10px rgba(0,255,136,0.65)) !important; }
+.sf-cyber-attributes .attribute.con:hover .sf-hex-bg,
+.sf-cyber-attributes .attribute[data-key="con"]:hover .sf-hex-bg { background: rgba(0,204,255,0.15) !important; filter: drop-shadow(0 0 10px rgba(0,204,255,0.65)) !important; }
+.sf-cyber-attributes .attribute.int:hover .sf-hex-bg,
+.sf-cyber-attributes .attribute[data-key="int"]:hover .sf-hex-bg { background: rgba(136,102,255,0.15) !important; filter: drop-shadow(0 0 10px rgba(136,102,255,0.65)) !important; }
+.sf-cyber-attributes .attribute.wis:hover .sf-hex-bg,
+.sf-cyber-attributes .attribute[data-key="wis"]:hover .sf-hex-bg { background: rgba(255,204,0,0.15) !important; filter: drop-shadow(0 0 10px rgba(255,204,0,0.65)) !important; }
+.sf-cyber-attributes .attribute.cha:hover .sf-hex-bg,
+.sf-cyber-attributes .attribute[data-key="cha"]:hover .sf-hex-bg { background: rgba(255,0,136,0.15) !important; filter: drop-shadow(0 0 10px rgba(255,0,136,0.65)) !important; }
+
+/* ── Data-stream particles ───────────────────────────────────── */
+.sf-streams-container {
+    position      : absolute;
+    inset         : 0;
+    pointer-events: none;
+    overflow      : hidden;
+    z-index       : 9995;
+}
+.sf-stream-p {
+    position  : absolute;
+    background: linear-gradient(to right, transparent, rgba(0,207,255,0.80), transparent);
+    border-radius: 1px;
+    opacity   : 0;
+}
+
+@keyframes sfStreamRight {
+    0%   { transform: translateX(-60px); opacity: 0; }
+    8%   { opacity: 0.80; }
+    88%  { opacity: 0.45; }
+    100% { transform: translateX(110vw);  opacity: 0; }
+}
+@keyframes sfStreamDown {
+    0%   { transform: translateY(-60px); opacity: 0; }
+    8%   { opacity: 0.80; }
+    88%  { opacity: 0.45; }
+    100% { transform: translateY(110vh);  opacity: 0; }
+}
+
+/* ── Status ticker in header ────────────────────────────────── */
+.sf-status-ticker {
+    position     : absolute;
+    right        : 8px;
+    top          : 50%;
+    transform    : translateY(-50%);
+    font-family  : 'Rajdhani', monospace !important;
+    font-size    : 0.62em;
+    letter-spacing: 1.5px;
+    color        : #00ff88;
+    text-shadow  : 0 0 6px #00ff88;
+    text-transform: uppercase;
+    pointer-events: none;
+    opacity      : 0.80;
+    transition   : opacity 0.28s ease;
+    white-space  : nowrap;
+}
+.sf-status-ticker.sf-ticker-out { opacity: 0; }
+
+/* ── Energy edge segments ────────────────────────────────────── */
+.sf-energy-edge {
+    position      : absolute;
+    top           : 0;
+    left          : 0;
+    height        : 2px;
+    width         : 35%;
+    background    : linear-gradient(to right, transparent, #00cfff, transparent);
+    pointer-events: none;
+    z-index       : 5;
+    animation     : sfEdgeSlide 5s ease-in-out infinite;
+    opacity       : 0.55;
+}
+
+@keyframes sfEdgeSlide {
+    0%   { transform: translateX(-100%); opacity: 0; }
+    15%  { opacity: 0.55; }
+    85%  { opacity: 0.35; }
+    100% { transform: translateX(380%);  opacity: 0; }
+}
+
+/* ================================================================
+   PORTRAIT GLITCH SYSTEM — clases aplicadas por JS (sheet-effects.js)
+   ================================================================ */
+
+/* ── Chromatic RGB split ─────────────────────────────────────── */
+.sf-cyber-image.sf-pg-chromatic .actor-image,
+.sf-cyber-image.sf-pg-chromatic img {
+    filter   :
+        drop-shadow(-5px 0 0 rgba(255, 0,   0,   0.95))
+        drop-shadow( 5px 0 0 rgba(0,   255, 255, 0.95)) !important;
+    transform: translateX(-2px) !important;
+    transition: none !important;
+}
+
+/* ── Horizontal slice bands ──────────────────────────────────── */
+.sf-pg-slice {
+    position     : absolute;
+    left         : 0;
+    right        : 0;
+    pointer-events: none;
+    z-index      : 20;
+    mix-blend-mode: screen;
+}
+
+/* ── Static / white-noise flash ─────────────────────────────── */
+.sf-cyber-image.sf-pg-static .actor-image,
+.sf-cyber-image.sf-pg-static img {
+    filter   : brightness(2.5) contrast(1.8) saturate(0) !important;
+    transform: translateX(1px) !important;
+    transition: none !important;
+}
+
+/* ── Color invert flash ──────────────────────────────────────── */
+.sf-cyber-image.sf-pg-invert .actor-image,
+.sf-cyber-image.sf-pg-invert img {
+    filter   : invert(1) hue-rotate(200deg) !important;
+    transition: none !important;
+}
+
+/* ── Position jitter ─────────────────────────────────────────── */
+.sf-cyber-image.sf-pg-jitter .actor-image,
+.sf-cyber-image.sf-pg-jitter img {
+    animation: sfPortJitter 0.18s linear !important;
+}
+@keyframes sfPortJitter {
+    0%   { transform: translate(0,0)     skewX(0deg);   filter: none; }
+    15%  { transform: translate(-4px,1px) skewX(-3deg);  filter: brightness(1.4); }
+    30%  { transform: translate(4px,-1px) skewX(2.5deg); filter: brightness(0.8); }
+    45%  { transform: translate(-3px,2px) skewX(-2deg);  filter: none; }
+    60%  { transform: translate(3px,-2px) skewX(1.5deg); filter: brightness(1.2); }
+    75%  { transform: translate(-2px,1px) skewX(-1deg);  filter: none; }
+    90%  { transform: translate(1px,0px)  skewX(0.5deg); filter: none; }
+    100% { transform: translate(0,0)     skewX(0deg);   filter: none; }
+}
+
+/* ── Full-frame fragmentation ────────────────────────────────── */
+.sf-cyber-image.sf-pg-frag .actor-image,
+.sf-cyber-image.sf-pg-frag img {
+    animation: sfPortFrag 0.25s linear !important;
+}
+@keyframes sfPortFrag {
+    0%   { clip-path: none;                          filter: none; }
+    20%  { clip-path: inset(20% 0 55% 0);            filter: hue-rotate(90deg) brightness(1.5); transform: translateX(-5px); }
+    35%  { clip-path: inset(52% 0 18% 0);            filter: hue-rotate(-60deg);                transform: translateX(5px); }
+    50%  { clip-path: inset(35% 0 35% 2px);         filter: brightness(2);                     transform: translateX(-3px); }
+    65%  { clip-path: inset(0 0 70% 0);              filter: saturate(3); }
+    80%  { clip-path: none;                          filter: none; }
+    100% { clip-path: none;                          filter: none;  transform: none; }
+}
+
+/* ── Error text overlay ──────────────────────────────────────── */
+.sf-pg-error {
+    position     : absolute;
+    inset        : 0;
+    display      : flex;
+    align-items  : center;
+    justify-content: center;
+    font-family  : 'Racing Sans One', monospace !important;
+    font-size    : 0.72em;
+    letter-spacing: 3px;
+    color        : #ff2222 !important;
+    text-shadow  : -2px 0 rgba(0,255,255,0.8), 2px 0 rgba(255,0,80,0.8), 0 0 12px #ff0000;
+    pointer-events: none;
+    z-index      : 25;
+    background   : rgba(255,0,0,0.06);
+    text-transform: uppercase;
+    animation    : sfErrGlitch 0.09s linear infinite;
+    border       : 1px solid rgba(255,0,0,0.35);
+}
+@keyframes sfErrGlitch {
+    0%   { transform: translateX(0);    opacity: 1; }
+    25%  { transform: translateX(-3px); opacity: 0.85; }
+    50%  { transform: translateX(3px);  opacity: 1; }
+    75%  { transform: translateX(-2px); opacity: 0.90; }
+    100% { transform: translateX(0);    opacity: 1; }
+}
+
+/* ── Ambient scanline grid intensified on portrait ───────────── */
+.sf-cyber-image::before {
+    background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        rgba(0, 207, 255, 0.035) 2px,
+        rgba(0, 207, 255, 0.035) 3px
+    ) !important;
+    animation: sfPortScanPulse 6s ease-in-out infinite !important;
+}
+@keyframes sfPortScanPulse {
+    0%, 100% { opacity: 0.6; }
+    50%       { opacity: 1.0; }
+}
+
+/* ── Extra traveling scan line on portrait ───────────────────── */
+.sf-cyber-image::after {
+    background: linear-gradient(
+        to bottom,
+        transparent 0%,
+        rgba(0, 255, 255, 0.18) 48%,
+        rgba(0, 207, 255, 0.30) 50%,
+        rgba(0, 255, 255, 0.18) 52%,
+        transparent 100%
+    ) !important;
+    background-size: 100% 30px !important;
+    animation: sfPortScanLine 2.8s linear infinite !important;
+    mix-blend-mode: screen !important;
+}
+@keyframes sfPortScanLine {
+    0%   { background-position: 0 -30px; }
+    100% { background-position: 0 120%; }
+}
+
+/* ── Attribute panels — glitch on hover ─────────────────────── */
+.sf-cyber-attributes .attribute {
+    transition: transform 0.15s ease, box-shadow 0.2s ease !important;
+}
+.sf-cyber-attributes .attribute:hover {
+    transform : translateY(-3px) !important;
+    box-shadow: 0 6px 20px rgba(0,207,255,0.30) !important;
+}
+
+/* ── Panels: pulse border on hover ──────────────────────────── */
+.sf-cyber-subsection:hover,
+.sf-cyber-attributes:hover {
+    border-color: rgba(0,207,255,0.55) !important;
+    box-shadow  :
+        0 0 15px rgba(0,207,255,0.18),
+        0 0 30px rgba(0,207,255,0.06),
+        inset 0 0 20px rgba(0,207,255,0.03) !important;
+    transition  : border-color 0.3s, box-shadow 0.3s;
+}
+
+/* ================================================================
+   FIX BOTONES CORTADOS
+   ================================================================ */
+
+/* ── 1. Partículas data-stream: bajar z-index para que NO tapen botones.
+        mix-blend-mode:screen las hace visibles sobre fondo oscuro sin
+        bloquear la UI interactiva.                                    ── */
+.sf-streams-container {
+    z-index        : 1 !important;
+    mix-blend-mode : screen;
+}
+
+/* ── 2. Espacio en el borde derecho del área scrollable ──────────────
+        El scrollbar nativo toma ~12-15 px; sin padding los botones del
+        borde derecho quedan cortados al ancho del scrollbar.           ── */
+.sf-cyber-sheet section.window-content,
+.sf-cyber-sheet .sheet-body {
+    padding-right : 10px !important;
+    box-sizing    : border-box !important;
+}
+
+/* ── 3. Espacio inferior para que el radar no tape las últimas filas ── */
+.sf-cyber-sheet .tab,
+.sf-cyber-sheet section[data-tab],
+.sf-cyber-sheet .crb-style > *:not(aside) {
+    padding-bottom : 115px;
+    box-sizing     : border-box;
+}
+
+/* ── Portrait hover — intensify reticle + glow ───────────────── */
+.sf-cyber-image:hover .sf-reticle-wrap { opacity: 1; }
+.sf-cyber-image .sf-reticle-wrap {
+    opacity   : 0.65;
+    transition: opacity 0.3s;
+}
+
+/* ── RGB split glitch on panel hover ────────────────────────── */
+.sf-cyber-subsection,
+.sf-cyber-attributes {
+    transition: border-color 0.3s, filter 0.3s;
+}
+.sf-cyber-subsection:active,
+.sf-cyber-attributes:active {
+    filter: drop-shadow(0 0 12px rgba(0,207,255,0.80));
+}
+
+/* ── Attribute panel — taller for hex visual ─────────────────── */
+.sf-cyber-attributes .attribute {
+    min-height  : 90px !important;
+    padding-top : 10px !important;
+    padding-bottom: 10px !important;
+}
+
