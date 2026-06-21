@@ -57,8 +57,38 @@
 }
 
 /* --- Immunities, Weaknesses, Resistances (Tags) --- */
-.sf-cyber-sheet .sheet-sidebar .tags .tag,
-.sf-cyber-sheet .sheet-sidebar .tag {
+.sf-cyber-sheet .sheet-sidebar .tags,
+.sf-cyber-sheet .sheet-sidebar .immunities.tags,
+.sf-cyber-sheet .sheet-sidebar .weaknesses.tags,
+.sf-cyber-sheet .sheet-sidebar .resistances.tags {
+    list-style: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+.actor.sheet.character section.window-content .crb-style aside .sidebar .immunities.tags .tag,
+.actor.sheet.character section.window-content .crb-style aside .sidebar .weaknesses.tags .tag,
+.actor.sheet.character section.window-content .crb-style aside .sidebar .resistances.tags .tag,
+.actor.sheet.character section.window-content .crb-style aside .sidebar .immunities.tags .tag_secondary,
+.actor.sheet.character section.window-content .crb-style aside .sidebar .weaknesses.tags .tag_secondary,
+.actor.sheet.character section.window-content .crb-style aside .sidebar .resistances.tags .tag_secondary,
+.sf-cyber-sheet .sheet-sidebar .immunities.tags .tag,
+.sf-cyber-sheet .sheet-sidebar .weaknesses.tags .tag,
+.sf-cyber-sheet .sheet-sidebar .resistances.tags .tag,
+.sf-cyber-sheet .sheet-sidebar .immunities.tags .tag_secondary,
+.sf-cyber-sheet .sheet-sidebar .weaknesses.tags .tag_secondary,
+.sf-cyber-sheet .sheet-sidebar .resistances.tags .tag_secondary {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: center !important;
+    text-align: center !important;
+    gap: 0 !important;
+    width: auto !important;
+    min-width: 0 !important;
+    min-height: 0 !important;
+    line-height: 1.2 !important;
+    box-sizing: border-box !important;
     background: rgba(0, 0, 0, 0.6) !important;
     border: 1px solid #00ffff !important;
     color: #00ffff !important;
@@ -66,9 +96,140 @@
     text-transform: uppercase !important;
     box-shadow: 0 0 5px rgba(0, 255, 255, 0.3) !important;
     border-radius: 4px !important;
-    padding: 2px 6px !important;
+    padding: 2px 10px !important;
     margin: 2px !important;
     text-shadow: 0 0 5px rgba(0, 255, 255, 0.5) !important;
+}
+
+.actor.sheet.character section.window-content .crb-style aside .sidebar .immunities.tags .tag::before,
+.actor.sheet.character section.window-content .crb-style aside .sidebar .weaknesses.tags .tag::before,
+.actor.sheet.character section.window-content .crb-style aside .sidebar .resistances.tags .tag::before,
+.actor.sheet.character section.window-content .crb-style aside .sidebar .immunities.tags .tag_secondary::before,
+.actor.sheet.character section.window-content .crb-style aside .sidebar .weaknesses.tags .tag_secondary::before,
+.actor.sheet.character section.window-content .crb-style aside .sidebar .resistances.tags .tag_secondary::before,
+.sf-cyber-sheet .sheet-sidebar .immunities.tags .tag::before,
+.sf-cyber-sheet .sheet-sidebar .weaknesses.tags .tag::before,
+.sf-cyber-sheet .sheet-sidebar .resistances.tags .tag::before,
+.sf-cyber-sheet .sheet-sidebar .immunities.tags .tag_secondary::before,
+.sf-cyber-sheet .sheet-sidebar .weaknesses.tags .tag_secondary::before,
+.sf-cyber-sheet .sheet-sidebar .resistances.tags .tag_secondary::before {
+    display: none !important;
+    content: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+.actor.sheet.character section.window-content .crb-style aside .sidebar .immunities.tags .tag > *,
+.actor.sheet.character section.window-content .crb-style aside .sidebar .weaknesses.tags .tag > *,
+.actor.sheet.character section.window-content .crb-style aside .sidebar .resistances.tags .tag > *,
+.actor.sheet.character section.window-content .crb-style aside .sidebar .immunities.tags .tag_secondary > *,
+.actor.sheet.character section.window-content .crb-style aside .sidebar .weaknesses.tags .tag_secondary > *,
+.actor.sheet.character section.window-content .crb-style aside .sidebar .resistances.tags .tag_secondary > *,
+.sf-cyber-sheet .sheet-sidebar .immunities.tags .tag > *,
+.sf-cyber-sheet .sheet-sidebar .weaknesses.tags .tag > *,
+.sf-cyber-sheet .sheet-sidebar .resistances.tags .tag > *,
+.sf-cyber-sheet .sheet-sidebar .immunities.tags .tag_secondary > *,
+.sf-cyber-sheet .sheet-sidebar .weaknesses.tags .tag_secondary > *,
+.sf-cyber-sheet .sheet-sidebar .resistances.tags .tag_secondary > * {
+    margin: 0 !important;
+    padding: 0 !important;
+    line-height: 1.2 !important;
+}
+
+/* ----- Force center sidebar immunities/weaknesses/resistances tags ----- */
+.actor.sheet.character section.window-content .crb-style aside .sidebar .immunities.tags li.tag,
+.actor.sheet.character section.window-content .crb-style aside .sidebar .weaknesses.tags li.tag,
+.actor.sheet.character section.window-content .crb-style aside .sidebar .resistances.tags li.tag,
+.actor.sheet.character section.window-content .crb-style aside .sidebar .immunities.tags li.tag.tag_secondary,
+.actor.sheet.character section.window-content .crb-style aside .sidebar .weaknesses.tags li.tag.tag_secondary,
+.actor.sheet.character section.window-content .crb-style aside .sidebar .resistances.tags li.tag.tag_secondary,
+.sf-cyber-sheet .sheet-sidebar .immunities.tags li.tag,
+.sf-cyber-sheet .sheet-sidebar .weaknesses.tags li.tag,
+.sf-cyber-sheet .sheet-sidebar .resistances.tags li.tag,
+.sf-cyber-sheet .sheet-sidebar .immunities.tags li.tag.tag_secondary,
+.sf-cyber-sheet .sheet-sidebar .weaknesses.tags li.tag.tag_secondary,
+.sf-cyber-sheet .sheet-sidebar .resistances.tags li.tag.tag_secondary {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    text-align: center !important;
+    vertical-align: middle !important;
+    width: auto !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+    white-space: nowrap !important;
+    line-height: 1.2 !important;
+}
+
+.actor.sheet.character section.window-content .crb-style aside .sidebar .immunities.tags li.tag > span,
+.actor.sheet.character section.window-content .crb-style aside .sidebar .weaknesses.tags li.tag > span,
+.actor.sheet.character section.window-content .crb-style aside .sidebar .resistances.tags li.tag > span,
+.actor.sheet.character section.window-content .crb-style aside .sidebar .immunities.tags li.tag.tag_secondary > span,
+.actor.sheet.character section.window-content .crb-style aside .sidebar .weaknesses.tags li.tag.tag_secondary > span,
+.actor.sheet.character section.window-content .crb-style aside .sidebar .resistances.tags li.tag.tag_secondary > span,
+.sf-cyber-sheet .sheet-sidebar .immunities.tags li.tag > span,
+.sf-cyber-sheet .sheet-sidebar .weaknesses.tags li.tag > span,
+.sf-cyber-sheet .sheet-sidebar .resistances.tags li.tag > span,
+.sf-cyber-sheet .sheet-sidebar .immunities.tags li.tag.tag_secondary > span,
+.sf-cyber-sheet .sheet-sidebar .weaknesses.tags li.tag.tag_secondary > span,
+.sf-cyber-sheet .sheet-sidebar .resistances.tags li.tag.tag_secondary > span {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    text-align: center !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    line-height: 1.2 !important;
+}
+
+/* --- Fallback stronger centering for sidebar IWR tags --- */
+.actor.sheet.character section.window-content .crb-style aside .sidebar .immunities.tags li.tag,
+.actor.sheet.character section.window-content .crb-style aside .sidebar .weaknesses.tags li.tag,
+.actor.sheet.character section.window-content .crb-style aside .sidebar .resistances.tags li.tag,
+.actor.sheet.character section.window-content .crb-style aside .sidebar .immunities.tags li.tag.tag_secondary,
+.actor.sheet.character section.window-content .crb-style aside .sidebar .weaknesses.tags li.tag.tag_secondary,
+.actor.sheet.character section.window-content .crb-style aside .sidebar .resistances.tags li.tag.tag_secondary,
+.sf-cyber-sheet .sheet-sidebar .immunities.tags li.tag,
+.sf-cyber-sheet .sheet-sidebar .weaknesses.tags li.tag,
+.sf-cyber-sheet .sheet-sidebar .resistances.tags li.tag,
+.sf-cyber-sheet .sheet-sidebar .immunities.tags li.tag.tag_secondary,
+.sf-cyber-sheet .sheet-sidebar .weaknesses.tags li.tag.tag_secondary,
+.sf-cyber-sheet .sheet-sidebar .resistances.tags li.tag.tag_secondary {
+    display: inline-grid !important;
+    place-items: center !important;
+    justify-items: center !important;
+    text-align: center !important;
+    vertical-align: middle !important;
+    width: auto !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+    white-space: nowrap !important;
+    line-height: 1.2 !important;
+    padding-left: 10px !important;
+    padding-right: 10px !important;
+}
+
+.actor.sheet.character section.window-content .crb-style aside .sidebar .immunities.tags li.tag > *,
+.actor.sheet.character section.window-content .crb-style aside .sidebar .weaknesses.tags li.tag > *,
+.actor.sheet.character section.window-content .crb-style aside .sidebar .resistances.tags li.tag > *,
+.actor.sheet.character section.window-content .crb-style aside .sidebar .immunities.tags li.tag.tag_secondary > *,
+.actor.sheet.character section.window-content .crb-style aside .sidebar .weaknesses.tags li.tag.tag_secondary > *,
+.actor.sheet.character section.window-content .crb-style aside .sidebar .resistances.tags li.tag.tag_secondary > *,
+.sf-cyber-sheet .sheet-sidebar .immunities.tags li.tag > *,
+.sf-cyber-sheet .sheet-sidebar .weaknesses.tags li.tag > *,
+.sf-cyber-sheet .sheet-sidebar .resistances.tags li.tag > *,
+.sf-cyber-sheet .sheet-sidebar .immunities.tags li.tag.tag_secondary > *,
+.sf-cyber-sheet .sheet-sidebar .weaknesses.tags li.tag.tag_secondary > *,
+.sf-cyber-sheet .sheet-sidebar .resistances.tags li.tag.tag_secondary > * {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    text-align: center !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    line-height: 1.2 !important;
 }
 /* === CYBER BUTTONS (Compact, Neon, No Stretch) === */
 .starfinder-actions .cyber-btn,
@@ -436,6 +597,134 @@ body.sf-cyber-ui .window-app .window-header {
 
 .actor.sheet header.char-header {
     border-bottom: 1px solid #38bdf8 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    min-height: 6.5rem !important;
+    padding: 8px 0 !important;
+}
+
+.actor.sheet header.char-header .char-details,
+.actor.sheet header.char-header .char-level,
+.actor.sheet header.char-header .char-name,
+.actor.sheet header.char-header .level {
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+.actor.sheet header.char-header {
+    border-bottom: 1px solid #38bdf8 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    gap: 16px !important;
+    min-height: 6.5rem !important;
+    padding: 8px 0 !important;
+}
+
+.actor.sheet header.char-header .char-details,
+.actor.sheet header.char-header .char-level {
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    align-self: stretch !important;
+    height: 100% !important;
+    gap: 2px !important;
+}
+
+.actor.sheet header.char-header .char-level {
+    justify-content: flex-start !important;
+    padding-top: 0 !important;
+}
+
+.actor.sheet header.char-header .level {
+    display: flex !important;
+    flex-direction: column-reverse !important;
+    align-items: center !important;
+    gap: 2px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    line-height: 1 !important;
+}
+
+.actor.sheet header.char-header .level input {
+    text-align: center !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+.actor.sheet header.char-header .level label {
+    text-align: center !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    font-size: 0.8rem !important;
+}
+
+.actor.sheet header.char-header .exp-data {
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: flex-start !important;
+    align-items: flex-start !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    line-height: 1 !important;
+    margin-top: -8px !important;
+}
+
+.actor.sheet header.char-header .char-name,
+.actor.sheet header.char-header .char-name * {
+    margin: 0 !important;
+    padding: 0 !important;
+    line-height: 1.1 !important;
+}
+
+.actor.sheet header.char-header .dots,
+.actor.sheet header.char-header .dots * {
+    margin: 0 !important;
+    padding: 0 !important;
+    line-height: 1 !important;
+}
+
+.actor.sheet header.char-header .level,
+.actor.sheet header.char-header .level * {
+    margin: 0 !important;
+    padding: 0 !important;
+    line-height: 1 !important;
+}
+
+/* P2, P3 & Crafting: sub-nav compact — Encounter/Exploration/Downtime,
+   Known Spells/Rituals/Activations, Crafting sub-sections */
+.sf-cyber-sheet nav.actions-nav.sub-nav,
+.sf-cyber-sheet nav.spellcasting-nav.sub-nav,
+.sf-cyber-sheet nav.crafting-nav.sub-nav,
+.sf-cyber-sheet nav.sub-nav[data-group="spellcasting"],
+.sf-cyber-sheet nav.sub-nav[data-group="actions"],
+.sf-cyber-sheet nav.sub-nav[data-group="crafting"] {
+    height: auto !important;
+    max-height: 44px !important;
+    min-height: 0 !important;
+    display: flex !important;
+    align-items: center !important;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+    box-sizing: border-box !important;
+}
+
+.sf-cyber-sheet nav.actions-nav.sub-nav .tab,
+.sf-cyber-sheet nav.spellcasting-nav.sub-nav .tab,
+.sf-cyber-sheet nav.crafting-nav.sub-nav .tab,
+.sf-cyber-sheet nav.sub-nav[data-group="spellcasting"] .tab,
+.sf-cyber-sheet nav.sub-nav[data-group="actions"] .tab,
+.sf-cyber-sheet nav.sub-nav[data-group="crafting"] .tab {
+    min-height: 0 !important;
+    height: 40px !important;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+    display: flex !important;
+    align-items: center !important;
+    box-sizing: border-box !important;
 }
 
 /* --- Actor Sheet Navigation Tabs --- */
@@ -449,6 +738,49 @@ body.sf-cyber-ui .window-app .window-header {
 .actor.sheet .sheet-navigation .item.active {
     background-color: #00f2ff;
     color: #000;
+}
+
+/* --- SF2E Cyber Sheet / PF2E actor sheet layout fixes --- */
+.actor.sheet.character section.window-content form.crb-style nav.sheet-navigation {
+    height: auto !important;
+    min-height: 2.5rem !important;
+    padding: 0.25rem 0.5rem 0.25rem 0.75rem !important;
+    align-items: center !important;
+    gap: 0.5rem !important;
+    line-height: 1 !important;
+}
+.actor.sheet.character section.window-content form.crb-style nav.sheet-navigation .panel-title {
+    padding-left: 0.75rem !important;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+    line-height: 1 !important;
+}
+.actor.sheet.character section.window-content form.crb-style nav.sheet-navigation .item {
+    min-width: 1.5rem !important;
+    min-height: 1.5rem !important;
+}
+.actor.sheet.character section.window-content .crb-style .sheet-body .sheet-content > .tab.active.crafting .major.item-container.known-formulas {
+    height: auto !important;
+    max-height: none !important;
+    min-height: 0 !important;
+    overflow: auto !important;
+    padding-bottom: 1rem !important;
+}
+.actor.sheet.character section.window-content .crb-style .sheet-body .sheet-content > .tab.active.crafting .major.item-container.known-formulas > header {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    flex-wrap: nowrap !important;
+    padding-top: 4px !important;
+    padding-bottom: 4px !important;
+    min-height: 34px !important;
+    height: auto !important;
+    line-height: 1.3 !important;
+    gap: 0.5rem !important;
+    overflow: visible !important;
+}
+.actor.sheet.character section.window-content .crb-style .sheet-body .sheet-content > .tab.active.crafting .major.item-container.known-formulas .directory-list {
+    min-height: 0 !important;
 }
 
 /* --- Sidebar (Right Panel) --- */
@@ -2167,6 +2499,19 @@ body.sf-cyber-ui #sidebar button:hover {
     border-radius: 8px;
     padding: 10px;
     margin-bottom: 12px;
+}
+
+.sf-cyber-sheet .feat-section > header,
+section.feat-section.major > header {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    min-height: 26px !important;
+    height: auto !important;
+    line-height: 1.3 !important;
+    padding-top: 4px !important;
+    padding-bottom: 4px !important;
+    box-sizing: border-box !important;
 }
 
 .sf-cyber-feats .cyber-header {
