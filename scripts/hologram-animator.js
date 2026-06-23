@@ -151,6 +151,12 @@ function playClickSound() {
     _clickAudio.play().catch(() => {});
 }
 
+// ── Setting helper ────────────────────────────────────────────────────────
+
+function armAnimEnabled() {
+    try { return game.settings.get(MODULE_ID, 'armAnimation') !== false; } catch { return true; }
+}
+
 // ── Open sequence ─────────────────────────────────────────────────────────
 
 async function openHologram(app, windowEl) {
@@ -159,55 +165,67 @@ async function openHologram(app, windowEl) {
 
     windowEl.classList.add('sf-holo-init');
 
-    // 1 ─ Reproducir open.webm en la esquina
-    const { wrap: openWrap, vid: openVid, promise: openDone } = cornerVideo(`${IMG_BASE}/open.webm`);
-    document.body.appendChild(openWrap);
+    if (armAnimEnabled()) {
+        // 1 ─ Reproducir open.webm en la esquina
+        const { wrap: openWrap, vid: openVid, promise: openDone } = cornerVideo(`${IMG_BASE}/open.webm`);
+        document.body.appendChild(openWrap);
 
-    // 2 ─ Esperar hasta EMERGE_BEFORE_MS antes del final del video
-    await new Promise(resolve => {
-        let fired = false;
-        function schedule() {
-            if (fired) return;
-            fired = true;
-            const totalMs = (openVid.duration || 0) * 1000;
-            const waitMs  = Math.max(0, totalMs - EMERGE_BEFORE_MS);
-            setTimeout(resolve, waitMs);
+        // 2 ─ Esperar hasta EMERGE_BEFORE_MS antes del final del video
+        await new Promise(resolve => {
+            let fired = false;
+            function schedule() {
+                if (fired) return;
+                fired = true;
+                const totalMs = (openVid.duration || 0) * 1000;
+                const waitMs  = Math.max(0, totalMs - EMERGE_BEFORE_MS);
+                setTimeout(resolve, waitMs);
+            }
+            if (openVid.readyState >= 1) {
+                schedule();
+            } else {
+                openVid.addEventListener('loadedmetadata', schedule, { once: true });
+                openVid.addEventListener('error',          schedule, { once: true });
+                setTimeout(schedule, 2000);
+            }
+        });
+
+        // 3 ─ Centrar la ventana ANTES de revelarla
+        centerWindow(app, windowEl);
+
+        // 4 ─ Emerge
+        windowEl.classList.remove('sf-holo-init');
+        windowEl.classList.add('sf-holo-emerge');
+
+        // 5 ─ Esperar que termine la emerge animation
+        await new Promise(r => setTimeout(r, EMERGE_MS));
+        windowEl.classList.remove('sf-holo-emerge');
+        windowEl.classList.add('sf-holo-active');
+        windowEl.dataset.holoState = 'idle';
+
+        // 6 ─ Arrancar audio ambiental
+        startSheetAudio(windowEl);
+
+        // 7 ─ Esperar que open.webm termine COMPLETAMENTE antes de arrancar idle
+        await openDone;
+        openWrap.remove();
+
+        // Guardia: no arrancar idle si la hoja ya se cerró
+        const state = _getState(windowEl);
+        if (!state.idleWrap && windowEl.isConnected && windowEl.dataset.holoState === 'idle') {
+            const { wrap: iw } = cornerVideo(`${IMG_BASE}/idle.webm`, true);
+            state.idleWrap = iw;
+            document.body.appendChild(state.idleWrap);
         }
-        if (openVid.readyState >= 1) {
-            schedule();
-        } else {
-            openVid.addEventListener('loadedmetadata', schedule, { once: true });
-            openVid.addEventListener('error',          schedule, { once: true });
-            setTimeout(schedule, 2000);
-        }
-    });
-
-    // 3 ─ Centrar la ventana ANTES de revelarla
-    centerWindow(app, windowEl);
-
-    // 4 ─ Emerge
-    windowEl.classList.remove('sf-holo-init');
-    windowEl.classList.add('sf-holo-emerge');
-
-    // 5 ─ Esperar que termine la emerge animation
-    await new Promise(r => setTimeout(r, EMERGE_MS));
-    windowEl.classList.remove('sf-holo-emerge');
-    windowEl.classList.add('sf-holo-active');
-    windowEl.dataset.holoState = 'idle';
-
-    // 6 ─ Arrancar audio ambiental
-    startSheetAudio(windowEl);
-
-    // 7 ─ Esperar que open.webm termine COMPLETAMENTE antes de arrancar idle
-    await openDone;
-    openWrap.remove();
-
-    // Guardia: no arrancar idle si la hoja ya se cerró
-    const state = _getState(windowEl);
-    if (!state.idleWrap && windowEl.isConnected && windowEl.dataset.holoState === 'idle') {
-        const { wrap: iw } = cornerVideo(`${IMG_BASE}/idle.webm`, true);
-        state.idleWrap = iw;
-        document.body.appendChild(state.idleWrap);
+    } else {
+        // Sin animación de brazo: la hoja emerge inmediatamente
+        centerWindow(app, windowEl);
+        windowEl.classList.remove('sf-holo-init');
+        windowEl.classList.add('sf-holo-emerge');
+        await new Promise(r => setTimeout(r, EMERGE_MS));
+        windowEl.classList.remove('sf-holo-emerge');
+        windowEl.classList.add('sf-holo-active');
+        windowEl.dataset.holoState = 'idle';
+        startSheetAudio(windowEl);
     }
 }
 
@@ -268,10 +286,12 @@ Hooks.on('renderActorSheet', (app, html, _data) => {
             // Ventana se cierra primero
             await origClose(opts);
             // close.webm entra JUSTO DESPUÉS de que la ventana desapareció del DOM
-            const { wrap, promise } = cornerVideo(`${IMG_BASE}/close.webm`);
-            document.body.appendChild(wrap);
-            await promise;
-            wrap.remove();
+            if (armAnimEnabled()) {
+                const { wrap, promise } = cornerVideo(`${IMG_BASE}/close.webm`);
+                document.body.appendChild(wrap);
+                await promise;
+                wrap.remove();
+            }
         };
     }
 
