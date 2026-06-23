@@ -1,4 +1,7 @@
-﻿/* ==================================================================
+﻿/* @import DEBE ir antes de cualquier regla CSS — spec violation fix */
+@import url('https://fonts.googleapis.com/css2?family=Racing+Sans+One&family=Rajdhani:wght@300;500&display=swap');
+
+/* ==================================================================
    SF2E CYBERPUNK SIDEBAR STYLES (UPDATED)
    ================================================================== */
 
@@ -137,52 +140,7 @@
 }
 
 /* ----- Force center sidebar immunities/weaknesses/resistances tags ----- */
-.actor.sheet.character section.window-content .crb-style aside .sidebar .immunities.tags li.tag,
-.actor.sheet.character section.window-content .crb-style aside .sidebar .weaknesses.tags li.tag,
-.actor.sheet.character section.window-content .crb-style aside .sidebar .resistances.tags li.tag,
-.actor.sheet.character section.window-content .crb-style aside .sidebar .immunities.tags li.tag.tag_secondary,
-.actor.sheet.character section.window-content .crb-style aside .sidebar .weaknesses.tags li.tag.tag_secondary,
-.actor.sheet.character section.window-content .crb-style aside .sidebar .resistances.tags li.tag.tag_secondary,
-.sf-cyber-sheet .sheet-sidebar .immunities.tags li.tag,
-.sf-cyber-sheet .sheet-sidebar .weaknesses.tags li.tag,
-.sf-cyber-sheet .sheet-sidebar .resistances.tags li.tag,
-.sf-cyber-sheet .sheet-sidebar .immunities.tags li.tag.tag_secondary,
-.sf-cyber-sheet .sheet-sidebar .weaknesses.tags li.tag.tag_secondary,
-.sf-cyber-sheet .sheet-sidebar .resistances.tags li.tag.tag_secondary {
-    display: inline-flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    text-align: center !important;
-    vertical-align: middle !important;
-    width: auto !important;
-    min-width: 0 !important;
-    max-width: 100% !important;
-    white-space: nowrap !important;
-    line-height: 1.2 !important;
-}
-
-.actor.sheet.character section.window-content .crb-style aside .sidebar .immunities.tags li.tag > span,
-.actor.sheet.character section.window-content .crb-style aside .sidebar .weaknesses.tags li.tag > span,
-.actor.sheet.character section.window-content .crb-style aside .sidebar .resistances.tags li.tag > span,
-.actor.sheet.character section.window-content .crb-style aside .sidebar .immunities.tags li.tag.tag_secondary > span,
-.actor.sheet.character section.window-content .crb-style aside .sidebar .weaknesses.tags li.tag.tag_secondary > span,
-.actor.sheet.character section.window-content .crb-style aside .sidebar .resistances.tags li.tag.tag_secondary > span,
-.sf-cyber-sheet .sheet-sidebar .immunities.tags li.tag > span,
-.sf-cyber-sheet .sheet-sidebar .weaknesses.tags li.tag > span,
-.sf-cyber-sheet .sheet-sidebar .resistances.tags li.tag > span,
-.sf-cyber-sheet .sheet-sidebar .immunities.tags li.tag.tag_secondary > span,
-.sf-cyber-sheet .sheet-sidebar .weaknesses.tags li.tag.tag_secondary > span,
-.sf-cyber-sheet .sheet-sidebar .resistances.tags li.tag.tag_secondary > span {
-    display: inline-flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    text-align: center !important;
-    width: 100% !important;
-    min-width: 0 !important;
-    line-height: 1.2 !important;
-}
-
-/* --- Fallback stronger centering for sidebar IWR tags --- */
+/* Regla única usando inline-grid (sobreescribe y consolida el anterior inline-flex duplicado) */
 .actor.sheet.character section.window-content .crb-style aside .sidebar .immunities.tags li.tag,
 .actor.sheet.character section.window-content .crb-style aside .sidebar .weaknesses.tags li.tag,
 .actor.sheet.character section.window-content .crb-style aside .sidebar .resistances.tags li.tag,
@@ -317,11 +275,10 @@
   /* Asegurar que el contenedor sea una fila y no colapse */
   .sf-cyber-sheet .button-group,
   .sf-cyber-sheet .cyber-controls,
-  .sf-cyber-sheet .tags,
   .sf-cyber-sheet .auxiliary-actions {
     display: flex !important;
     flex-direction: row !important;
-    flex-wrap: nowrap !important; /* Mantiene todo en una lÃ­nea */
+    flex-wrap: nowrap !important;
     align-items: center !important;
     gap: 4px !important;
     height: auto !important;
@@ -373,8 +330,7 @@
 /* === BUTTON GROUPS & CONTROLS (Compact, No Wrap, Row) === */
 /* SCOPED: solo aplica dentro de fichas cyber — nunca contaminar .tags global de Foundry */
 .sf-cyber-sheet .button-group,
-.sf-cyber-sheet .cyber-controls,
-.sf-cyber-sheet .tags {
+.sf-cyber-sheet .cyber-controls {
   display: flex !important;
   flex-direction: row !important;
   flex-wrap: nowrap !important;
@@ -388,9 +344,9 @@
    ============================================================ */
 
 
-body,
-.app,
-.themed.theme-light {
+body.sf-cyber-ui,
+body.sf-cyber-ui .app,
+body.sf-cyber-ui .themed.theme-light {
   /* Color Definitions */
   --color-bg-trait: #0f172a;
   --color-border-trait: #38bdf8;
@@ -425,7 +381,7 @@ body,
   --alternate-background: #334155;
 }
 
-.actor.sheet {
+body.sf-cyber-ui .actor.sheet {
   --color-scrollbar: #00f2ff;
 }
 
@@ -533,15 +489,15 @@ body.sf-cyber-ui .window-app .window-header {
 }
 
 /* --- Actor Sheets: Remove parchment, dark background --- */
-.actor.sheet section.window-content,
-.sheet.party form,
-.sheet.kingdom form,
-.sheet.army form {
+body.sf-cyber-ui .actor.sheet section.window-content,
+body.sf-cyber-ui .sheet.party form,
+body.sf-cyber-ui .sheet.kingdom form,
+body.sf-cyber-ui .sheet.army form {
     background: #020617 !important;
 }
 
 /* --- Actor Sheet Buttons (neon style) --- */
-.actor.sheet button {
+body.sf-cyber-ui .actor.sheet button {
     --green: #00f2ff;
     padding: 0.7em 2.7em;
     letter-spacing: 0.06em;
@@ -556,12 +512,12 @@ body.sf-cyber-ui .window-app .window-header {
     box-shadow: inset 0 0 10px rgba(0, 242, 255, 0.4), 0 0 9px 3px rgba(0, 242, 255, 0.1);
 }
 
-.actor.sheet button:hover {
+body.sf-cyber-ui .actor.sheet button:hover {
     color: #ffffff;
     box-shadow: inset 0 0 10px rgba(0, 242, 255, 0.6), 0 0 9px 3px rgba(0, 242, 255, 0.2);
 }
 
-.actor.sheet button:before {
+body.sf-cyber-ui .actor.sheet button:before {
     content: "";
     position: absolute;
     left: -4em;
@@ -572,47 +528,30 @@ body.sf-cyber-ui .window-app .window-header {
     background: linear-gradient(to right, transparent 1%, rgba(0, 242, 255, 0.1) 40%, rgba(0, 242, 255, 0.1) 60%, transparent 100%);
 }
 
-.actor.sheet button:hover:before {
+body.sf-cyber-ui .actor.sheet button:hover:before {
     transform: translateX(15em);
 }
 
 /* --- Actor Sheet Inputs --- */
-.actor.sheet input, .actor.sheet select {
+body.sf-cyber-ui .actor.sheet input, body.sf-cyber-ui .actor.sheet select {
     background: rgba(255, 255, 255, 0.05) !important;
     color: #00f2ff !important;
     border: 1px solid #1e293b !important;
 }
 
-.actor.sheet input:focus, .actor.sheet select:focus {
+body.sf-cyber-ui .actor.sheet input:focus, body.sf-cyber-ui .actor.sheet select:focus {
     border-color: #38bdf8 !important;
     box-shadow: 0 0 5px #38bdf8 !important;
 }
 
 /* --- Actor Sheet Headers --- */
-.actor.sheet h1, .actor.sheet h2, .actor.sheet h3, .actor.sheet h4 {
+body.sf-cyber-ui .actor.sheet h1, body.sf-cyber-ui .actor.sheet h2, body.sf-cyber-ui .actor.sheet h3, body.sf-cyber-ui .actor.sheet h4 {
     color: #38bdf8;
     text-transform: uppercase;
     letter-spacing: 1px;
 }
 
-.actor.sheet header.char-header {
-    border-bottom: 1px solid #38bdf8 !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: space-between !important;
-    min-height: 6.5rem !important;
-    padding: 8px 0 !important;
-}
-
-.actor.sheet header.char-header .char-details,
-.actor.sheet header.char-header .char-level,
-.actor.sheet header.char-header .char-name,
-.actor.sheet header.char-header .level {
-    margin: 0 !important;
-    padding: 0 !important;
-}
-
-.actor.sheet header.char-header {
+body.sf-cyber-ui .actor.sheet header.char-header {
     border-bottom: 1px solid #38bdf8 !important;
     display: flex !important;
     align-items: center !important;
@@ -622,8 +561,8 @@ body.sf-cyber-ui .window-app .window-header {
     padding: 8px 0 !important;
 }
 
-.actor.sheet header.char-header .char-details,
-.actor.sheet header.char-header .char-level {
+body.sf-cyber-ui .actor.sheet header.char-header .char-details,
+body.sf-cyber-ui .actor.sheet header.char-header .char-level {
     display: flex !important;
     flex-direction: column !important;
     justify-content: center !important;
@@ -632,7 +571,7 @@ body.sf-cyber-ui .window-app .window-header {
     gap: 2px !important;
 }
 
-.actor.sheet header.char-header .char-level {
+body.sf-cyber-ui .actor.sheet header.char-header .char-level {
     justify-content: flex-start !important;
     padding-top: 0 !important;
 }
@@ -844,16 +783,168 @@ body.sf-cyber-ui .window-app .window-header {
 }
 
 /* ============================================================
+   HOLOGRAPHIC CHAT CONTAINER (log, input, controls)
+   ============================================================ */
+
+/* Chat tab container — solo cuando está activo para no sobreescribir
+   el display:none que Foundry aplica a los tabs inactivos */
+#chat.sidebar-tab.active,
+#chat.active {
+    display: flex !important;
+    flex-direction: column;
+    background: transparent;
+}
+
+/* Scrollable message log */
+#chat-log {
+    background: linear-gradient(180deg, #020617 0%, #060d1f 100%);
+    border-bottom: 1px solid #00f2ff33;
+    flex: 1;
+    overflow-y: auto;
+    padding: 6px 4px;
+    scrollbar-width: thin;
+    scrollbar-color: #00f2ff55 #020617;
+    position: relative;
+}
+/* Ambient scanline pass over the whole log */
+#chat-log::before {
+    content: '';
+    position: sticky;
+    top: 0;
+    left: 0;
+    display: block;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg,
+        transparent 0%,
+        rgba(0, 242, 255, 0.18) 40%,
+        rgba(255, 0, 255, 0.08) 60%,
+        transparent 100%
+    );
+    animation: scanline-pass 6s linear infinite;
+    pointer-events: none;
+    z-index: 1;
+    margin-bottom: -2px;
+}
+#chat-log::-webkit-scrollbar { width: 5px; }
+#chat-log::-webkit-scrollbar-track { background: #020617; }
+#chat-log::-webkit-scrollbar-thumb {
+    background: #00f2ff55;
+    border-radius: 3px;
+}
+#chat-log::-webkit-scrollbar-thumb:hover { background: #00f2ffaa; }
+
+/* Controls bar (bottom of chat panel) */
+#chat-controls {
+    background: #060d1f;
+    border-top: 1px solid #00f2ff33;
+    padding: 6px 8px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+/* Text input form */
+#chat-form {
+    flex: 1;
+    display: flex;
+}
+
+/* "Enter message" textarea */
+#chat-message {
+    flex: 1;
+    background: rgba(0, 242, 255, 0.05) !important;
+    border: 1px solid #00f2ff44 !important;
+    border-radius: 6px !important;
+    color: #e0f7ff !important;
+    font-family: 'Rajdhani', sans-serif !important;
+    font-size: 13px !important;
+    padding: 6px 10px !important;
+    resize: none !important;
+    min-height: 36px !important;
+    max-height: 80px !important;
+    line-height: 1.4 !important;
+    transition: border-color 0.25s, box-shadow 0.25s;
+    box-shadow: 0 0 0 transparent;
+}
+#chat-message::placeholder {
+    color: #38bdf860 !important;
+    font-style: italic;
+}
+#chat-message:focus {
+    border-color: #00f2ffaa !important;
+    box-shadow: 0 0 8px #00f2ff44, inset 0 0 6px rgba(0, 242, 255, 0.08) !important;
+    outline: none !important;
+    background: rgba(0, 242, 255, 0.08) !important;
+}
+
+/* Chat control icon buttons (Roll, flush, etc.) */
+#chat-controls .chat-control-icon a,
+#chat-controls .chat-control-icon,
+#chat-controls a {
+    color: #38bdf8 !important;
+    font-size: 16px;
+    transition: color 0.2s, text-shadow 0.2s;
+    text-decoration: none;
+}
+#chat-controls .chat-control-icon a:hover,
+#chat-controls a:hover {
+    color: #00f2ff !important;
+    text-shadow: 0 0 8px #00f2ff;
+}
+
+/* Roll button (v12 sends a button element) */
+#chat-controls button[type="submit"],
+#chat-controls button.roll,
+#chat-controls .chat-roll {
+    background: linear-gradient(135deg, #083344, #0d1f35) !important;
+    border: 1px solid #00f2ff66 !important;
+    border-radius: 6px !important;
+    color: #00f2ff !important;
+    font-family: 'Rajdhani', sans-serif !important;
+    font-size: 12px !important;
+    font-weight: 700 !important;
+    letter-spacing: 1px !important;
+    padding: 5px 12px !important;
+    cursor: pointer;
+    text-shadow: 0 0 6px #00f2ff88;
+    transition: all 0.2s;
+}
+#chat-controls button[type="submit"]:hover,
+#chat-controls button.roll:hover,
+#chat-controls .chat-roll:hover {
+    background: linear-gradient(135deg, #0d1f35, #0f2a45) !important;
+    border-color: #00f2ff !important;
+    box-shadow: 0 0 12px #00f2ff55 !important;
+    text-shadow: 0 0 10px #00f2ff !important;
+}
+
+/* Whisper/roll mode selector (if present) */
+#chat-controls select {
+    background: #060d1f !important;
+    border: 1px solid #00f2ff44 !important;
+    color: #38bdf8 !important;
+    border-radius: 4px !important;
+    font-family: 'Rajdhani', sans-serif !important;
+    font-size: 12px !important;
+    padding: 2px 4px !important;
+}
+#chat-controls select:focus {
+    border-color: #00f2ff !important;
+    outline: none !important;
+}
+
+/* ============================================================
    HOLOGRAPHIC CHAT MESSAGES
    ============================================================ */
 
 /* --- Holographic card wrapper --- */
-.chat-message {
+body.sf-cyber-ui .chat-message {
     position: relative;
     background: linear-gradient(135deg, #080818 0%, #0d1528 40%, #0a0f1e 70%, #101025 100%);
     border: 1px solid #00ffff25;
     border-radius: 10px;
-    color: #e0e0e0;
+    color: #e8f4ff;
     overflow: hidden;
     animation: holo-flicker 8s infinite ease-in-out;
     box-shadow:
@@ -864,7 +955,7 @@ body.sf-cyber-ui .window-app .window-header {
 }
 
 /* Holographic rainbow shimmer */
-.chat-message::before {
+body.sf-cyber-ui .chat-message::before {
     content: '';
     position: absolute;
     inset: 0;
@@ -885,7 +976,7 @@ body.sf-cyber-ui .window-app .window-header {
 }
 
 /* Scanline pass */
-.chat-message::after {
+body.sf-cyber-ui .chat-message::after {
     content: '';
     position: absolute;
     left: 0;
@@ -904,13 +995,13 @@ body.sf-cyber-ui .window-app .window-header {
 }
 
 /* Children above overlays */
-.chat-message > * {
+body.sf-cyber-ui .chat-message > * {
     position: relative;
     z-index: 2;
 }
 
 /* --- Message header (sender name, timestamp) --- */
-.chat-message .message-header {
+body.sf-cyber-ui .chat-message .message-header {
     color: #00ffff;
     font-family: 'Racing Sans One', sans-serif;
     text-shadow: 1px 1px 1px #000, 0 0 2px #00ffff30;
@@ -918,33 +1009,33 @@ body.sf-cyber-ui .window-app .window-header {
     padding-bottom: 4px;
 }
 
-.chat-message .message-header .message-sender {
+body.sf-cyber-ui .chat-message .message-header .message-sender {
     color: #00ffff;
     text-shadow: 1px 1px 1px #000, 0 0 3px #00ffff35;
     letter-spacing: 0.5px;
 }
 
-.chat-message .message-header .message-metadata time {
+body.sf-cyber-ui .chat-message .message-header .message-metadata time {
     color: #888;
     font-family: 'Rajdhani', sans-serif;
 }
 
 /* --- Flavor text (attack name, traits) --- */
-.chat-message .message-header .flavor-text {
+body.sf-cyber-ui .chat-message .message-header .flavor-text {
     color: #e0e0e0;
     font-family: 'Rajdhani', sans-serif;
 }
 
-.chat-message .message-header .flavor-text h4,
-.chat-message .message-header .flavor-text strong {
+body.sf-cyber-ui .chat-message .message-header .flavor-text h4,
+body.sf-cyber-ui .chat-message .message-header .flavor-text strong {
     color: #00ffff;
     font-family: 'Racing Sans One', sans-serif;
     text-shadow: 1px 1px 1px #000, 0 0 2px #00ffff25;
 }
 
 /* --- Trait tags (ATTACK, ANALOG, etc.) in chat --- */
-.chat-message .tags .tag,
-.chat-message .tags.paizo-style .tag {
+body.sf-cyber-ui .chat-message .tags .tag,
+body.sf-cyber-ui .chat-message .tags.paizo-style .tag {
     background: linear-gradient(145deg, rgba(26, 26, 46, 0.9), rgba(22, 33, 62, 0.9)) !important;
     border: 1px solid #ff00ff40 !important;
     color: #ff00ff !important;
@@ -956,7 +1047,7 @@ body.sf-cyber-ui .window-app .window-header {
 }
 
 /* Range increment tag */
-.chat-message .tags .tag.ghost-bg {
+body.sf-cyber-ui .chat-message .tags .tag.ghost-bg {
     border-color: #00ffff40 !important;
     color: #00ffff !important;
     text-shadow: 1px 1px 0px #000;
@@ -964,8 +1055,8 @@ body.sf-cyber-ui .window-app .window-header {
 }
 
 /* --- Modifier tags (Dexterity +3, Expert +11) --- */
-.chat-message .modifiers .tag,
-.chat-message .flavor-text .modifiers .tag {
+body.sf-cyber-ui .chat-message .modifiers .tag,
+body.sf-cyber-ui .chat-message .flavor-text .modifiers .tag {
     background: rgba(0, 255, 255, 0.08) !important;
     border: 1px solid #00ffff35 !important;
     color: #00ffff !important;
@@ -978,7 +1069,7 @@ body.sf-cyber-ui .window-app .window-header {
 }
 
 /* --- Damage breakdown tags --- */
-.chat-message .damage-tag {
+body.sf-cyber-ui .chat-message .damage-tag {
     background: rgba(0, 0, 0, 0.4) !important;
     border: 1px solid #00ffff25 !important;
     color: #e0e0e0 !important;
@@ -986,7 +1077,7 @@ body.sf-cyber-ui .window-app .window-header {
     border-radius: 3px;
 }
 
-.chat-message .damage-tag-base {
+body.sf-cyber-ui .chat-message .damage-tag-base {
     background: rgba(0, 255, 255, 0.08) !important;
     color: #00ffff !important;
 }
@@ -994,7 +1085,7 @@ body.sf-cyber-ui .window-app .window-header {
 /* === ROLL RESULT AREA === */
 
 /* Roll container */
-.chat-message .dice-roll {
+body.sf-cyber-ui .chat-message .dice-roll {
     background: rgba(0, 0, 0, 0.3);
     border: 1px solid #00ffff15;
     border-radius: 8px;
@@ -1003,7 +1094,7 @@ body.sf-cyber-ui .window-app .window-header {
 }
 
 /* Formula ("1d20 + 14") */
-.chat-message .dice-result .dice-formula {
+body.sf-cyber-ui .chat-message .dice-result .dice-formula {
     background: linear-gradient(90deg, rgba(0, 255, 255, 0.06), rgba(255, 0, 255, 0.04), rgba(0, 255, 255, 0.06)) !important;
     border: 1px solid #00ffff20 !important;
     border-radius: 6px;
@@ -1015,7 +1106,7 @@ body.sf-cyber-ui .window-app .window-header {
 }
 
 /* Dice tooltip (breakdown on hover) */
-.chat-message .dice-result .dice-tooltip {
+body.sf-cyber-ui .chat-message .dice-result .dice-tooltip {
     background: rgba(8, 8, 24, 0.95) !important;
     border: 1px solid #00ffff20 !important;
     border-radius: 6px;
@@ -1023,8 +1114,8 @@ body.sf-cyber-ui .window-app .window-header {
 }
 
 /* Result total number */
-.chat-message .dice-result h4.dice-total,
-.chat-message .dice-result .dice-total {
+body.sf-cyber-ui .chat-message .dice-result h4.dice-total,
+body.sf-cyber-ui .chat-message .dice-result .dice-total {
     background: linear-gradient(135deg, #080818, #0d1528, #101025) !important;
     border: 2px solid #00ffff30 !important;
     border-radius: 8px;
@@ -1038,8 +1129,8 @@ body.sf-cyber-ui .window-app .window-header {
 }
 
 /* Holographic shimmer on the result number */
-.chat-message .dice-result h4.dice-total::before,
-.chat-message .dice-result .dice-total::before {
+body.sf-cyber-ui .chat-message .dice-result h4.dice-total::before,
+body.sf-cyber-ui .chat-message .dice-result .dice-total::before {
     content: '';
     position: absolute;
     inset: 0;
@@ -1057,15 +1148,15 @@ body.sf-cyber-ui .window-app .window-header {
 }
 
 /* Degree-of-success coloring on totals */
-.chat-message .dice-result h4.dice-total.success,
-.chat-message .dice-total.success {
+body.sf-cyber-ui .chat-message .dice-result h4.dice-total.success,
+body.sf-cyber-ui .chat-message .dice-total.success {
     border-color: #00ff8850 !important;
     color: #00ff88 !important;
     text-shadow: 1px 1px 1px #000, 0 0 5px #00ff8840;
 }
 
-.chat-message .dice-result h4.dice-total.criticalSuccess,
-.chat-message .dice-total.criticalSuccess {
+body.sf-cyber-ui .chat-message .dice-result h4.dice-total.criticalSuccess,
+body.sf-cyber-ui .chat-message .dice-total.criticalSuccess {
     border-color: #00ff88 !important;
     color: #00ff88 !important;
     text-shadow: 1px 1px 1px #000, 0 0 8px #00ff8860;
@@ -1073,8 +1164,8 @@ body.sf-cyber-ui .window-app .window-header {
     background: linear-gradient(135deg, #041a10, #082818, #0a3020) !important;
 }
 
-.chat-message .dice-result h4.dice-total.criticalFailure,
-.chat-message .dice-total.criticalFailure {
+body.sf-cyber-ui .chat-message .dice-result h4.dice-total.criticalFailure,
+body.sf-cyber-ui .chat-message .dice-total.criticalFailure {
     border-color: #ff2222 !important;
     color: #ff4444 !important;
     text-shadow: 1px 1px 1px #000, 0 0 8px #ff444460;
@@ -1118,7 +1209,7 @@ body.sf-cyber-ui .window-app .window-header {
 }
 
 /* Critical Success - Entire Chat Card */
-.chat-message:has(.dice-total.criticalSuccess) {
+body.sf-cyber-ui .chat-message:has(.dice-total.criticalSuccess) {
     background: linear-gradient(145deg, #040f0a 0%, #082818 40%, #041a10 70%, #0a1510 100%) !important;
     border: 1px solid #00ff8860 !important;
     animation: crit-success-border 2s ease-in-out infinite !important;
@@ -1127,7 +1218,7 @@ body.sf-cyber-ui .window-app .window-header {
 }
 
 /* Override the base ::before shimmer with green/gold version */
-.chat-message:has(.dice-total.criticalSuccess)::before {
+body.sf-cyber-ui .chat-message:has(.dice-total.criticalSuccess)::before {
     content: '';
     position: absolute;
     inset: 0;
@@ -1147,7 +1238,7 @@ body.sf-cyber-ui .window-app .window-header {
 }
 
 /* Scanline override - green for crit success */
-.chat-message:has(.dice-total.criticalSuccess)::after {
+body.sf-cyber-ui .chat-message:has(.dice-total.criticalSuccess)::after {
     content: '';
     position: absolute;
     left: 0;
@@ -1160,20 +1251,20 @@ body.sf-cyber-ui .window-app .window-header {
 }
 
 /* Green-tinted sender name in critical success */
-.chat-message:has(.dice-total.criticalSuccess) .message-sender {
+body.sf-cyber-ui .chat-message:has(.dice-total.criticalSuccess) .message-sender {
     color: #00ff88 !important;
     text-shadow: 1px 1px 1px #000, 0 0 4px #00ff8840 !important;
 }
 
 /* Green result text styling */
-.chat-message:has(.dice-total.criticalSuccess) .flavor-text .degree-of-success .criticalSuccess {
+body.sf-cyber-ui .chat-message:has(.dice-total.criticalSuccess) .flavor-text .degree-of-success .criticalSuccess {
     color: #00ff88 !important;
     text-shadow: 1px 1px 1px #000, 0 0 5px #00ff8850 !important;
     font-weight: 700;
 }
 
 /* Bright border on formula in crit success */
-.chat-message:has(.dice-total.criticalSuccess) .dice-formula {
+body.sf-cyber-ui .chat-message:has(.dice-total.criticalSuccess) .dice-formula {
     border-color: #00ff8830 !important;
 }
 
@@ -1256,7 +1347,7 @@ body.sf-cyber-ui .window-app .window-header {
 }
 
 /* Critical Failure - Entire Chat Card */
-.chat-message:has(.dice-total.criticalFailure) {
+body.sf-cyber-ui .chat-message:has(.dice-total.criticalFailure) {
     background: linear-gradient(145deg, #1a0505 0%, #280a0a 40%, #1a0808 70%, #150505 100%) !important;
     border: 1px solid #ff444460 !important;
     animation: crit-fail-border 3s ease-in-out infinite, crit-fail-flicker 4s infinite !important;
@@ -1265,7 +1356,7 @@ body.sf-cyber-ui .window-app .window-header {
 }
 
 /* Red chromatic shimmer overlay */
-.chat-message:has(.dice-total.criticalFailure)::before {
+body.sf-cyber-ui .chat-message:has(.dice-total.criticalFailure)::before {
     content: '';
     position: absolute;
     inset: 0;
@@ -1286,7 +1377,7 @@ body.sf-cyber-ui .window-app .window-header {
 }
 
 /* Fast double-pass scanline for crit fail chaos */
-.chat-message:has(.dice-total.criticalFailure)::after {
+body.sf-cyber-ui .chat-message:has(.dice-total.criticalFailure)::after {
     content: '';
     position: absolute;
     left: 0;
@@ -1300,86 +1391,86 @@ body.sf-cyber-ui .window-app .window-header {
 }
 
 /* Red-tinted sender name in critical failure */
-.chat-message:has(.dice-total.criticalFailure) .message-sender {
+body.sf-cyber-ui .chat-message:has(.dice-total.criticalFailure) .message-sender {
     color: #ff6666 !important;
     text-shadow: 1px 1px 1px #000, 0 0 4px #ff444440 !important;
 }
 
 /* Red result text styling */
-.chat-message:has(.dice-total.criticalFailure) .flavor-text .degree-of-success .criticalFailure {
+body.sf-cyber-ui .chat-message:has(.dice-total.criticalFailure) .flavor-text .degree-of-success .criticalFailure {
     color: #ff4444 !important;
     text-shadow: 1px 1px 1px #000, 0 0 5px #ff444450 !important;
     font-weight: 700;
 }
 
 /* Red border on formula in crit fail */
-.chat-message:has(.dice-total.criticalFailure) .dice-formula {
+body.sf-cyber-ui .chat-message:has(.dice-total.criticalFailure) .dice-formula {
     border-color: #ff444430 !important;
 }
 
 /* Override trait tags in critical messages to match theme */
-.chat-message:has(.dice-total.criticalSuccess) .tags .tag {
+body.sf-cyber-ui .chat-message:has(.dice-total.criticalSuccess) .tags .tag {
     border-color: #00ff8840 !important;
     color: #00ff88 !important;
 }
 
-.chat-message:has(.dice-total.criticalFailure) .tags .tag {
+body.sf-cyber-ui .chat-message:has(.dice-total.criticalFailure) .tags .tag {
     border-color: #ff444440 !important;
     color: #ff6666 !important;
 }
 
 /* --- Target DC result line --- */
-.chat-message .target-dc-result {
+body.sf-cyber-ui .chat-message .target-dc-result {
     background: rgba(0, 0, 0, 0.2);
     border: 1px solid #00ffff10;
     border-radius: 6px;
     padding: 4px 8px;
 }
 
-.chat-message .target-dc-result .target-dc {
+body.sf-cyber-ui .chat-message .target-dc-result .target-dc {
     color: #888;
     font-family: 'Rajdhani', sans-serif;
 }
 
-.chat-message .target-dc-result .result .success {
+body.sf-cyber-ui .chat-message .target-dc-result .result .success {
     color: #00ff88 !important;
     text-shadow: 1px 1px 0px #000;
 }
 
-.chat-message .target-dc-result .result .criticalSuccess {
+body.sf-cyber-ui .chat-message .target-dc-result .result .criticalSuccess {
     color: #00ff88 !important;
     text-shadow: 1px 1px 0px #000, 0 0 3px #00ff8840;
     font-weight: 700;
 }
 
-.chat-message .target-dc-result .result .failure {
+body.sf-cyber-ui .chat-message .target-dc-result .result .failure {
     color: #ff6666 !important;
     text-shadow: 1px 1px 0px #000;
 }
 
-.chat-message .target-dc-result .result .criticalFailure {
+body.sf-cyber-ui .chat-message .target-dc-result .result .criticalFailure {
     color: #ff4444 !important;
     text-shadow: 1px 1px 0px #000, 0 0 3px #ff444440;
     font-weight: 700;
 }
 
 /* --- Degree of success in flavor text --- */
-.chat-message .flavor-text .degree-of-success .criticalSuccess {
+body.sf-cyber-ui .chat-message .flavor-text .degree-of-success .criticalSuccess {
     color: #00ff88 !important;
     text-shadow: 1px 1px 0px #000, 0 0 3px #00ff8835;
 }
 
-.chat-message .flavor-text .degree-of-success .success {
+body.sf-cyber-ui .chat-message .flavor-text .degree-of-success .success {
     color: #66ffaa !important;
     text-shadow: 1px 1px 0px #000;
 }
 
-.chat-message .flavor-text .degree-of-success .failure {
+body.sf-cyber-ui .chat-message .flavor-text .degree-of-success .failure {
     color: #ff8866 !important;
     text-shadow: 1px 1px 0px #000;
 }
 
-.chat-message .flavor-text .degree-of-success .criticalFailure {
+body.sf-cyber-ui .chat-message .flavor-text .degree-of-success .criticalFailure {
     color: #ff4444 !important;
     text-shadow: 1px 1px 0px #000, 0 0 3px #ff444435;
 }
@@ -1387,8 +1478,8 @@ body.sf-cyber-ui .window-app .window-header {
 /* === BUTTONS (Damage / Critical / Strike) === */
 
 /* Damage & Critical buttons */
-.chat-message .message-buttons button,
-.chat-message .card-buttons button {
+body.sf-cyber-ui .chat-message .message-buttons button,
+body.sf-cyber-ui .chat-message .card-buttons button {
     background: linear-gradient(135deg, #0a0a1a, #0d1528) !important;
     border: 1px solid #00ffff30 !important;
     border-radius: 6px;
@@ -1403,8 +1494,8 @@ body.sf-cyber-ui .window-app .window-header {
     overflow: hidden;
 }
 
-.chat-message .message-buttons button::before,
-.chat-message .card-buttons button::before {
+body.sf-cyber-ui .chat-message .message-buttons button::before,
+body.sf-cyber-ui .chat-message .card-buttons button::before {
     content: '';
     position: absolute;
     inset: 0;
@@ -1414,8 +1505,8 @@ body.sf-cyber-ui .window-app .window-header {
     pointer-events: none;
 }
 
-.chat-message .message-buttons button:hover,
-.chat-message .card-buttons button:hover {
+body.sf-cyber-ui .chat-message .message-buttons button:hover,
+body.sf-cyber-ui .chat-message .card-buttons button:hover {
     background: linear-gradient(135deg, #0d1528, #152040) !important;
     border-color: #00ffff60 !important;
     box-shadow: 0 0 15px #00ffff20, inset 0 0 15px #00ffff08;
@@ -1424,58 +1515,58 @@ body.sf-cyber-ui .window-app .window-header {
 }
 
 /* Critical-success button variant */
-.chat-message .message-buttons button.critical-success,
-.chat-message .card-buttons button.critical-success {
+body.sf-cyber-ui .chat-message .message-buttons button.critical-success,
+body.sf-cyber-ui .chat-message .card-buttons button.critical-success {
     border-color: #ff00ff30 !important;
     color: #ff00ff !important;
     text-shadow: 0 0 5px #ff00ff30;
 }
 
-.chat-message .message-buttons button.critical-success:hover,
-.chat-message .card-buttons button.critical-success:hover {
+body.sf-cyber-ui .chat-message .message-buttons button.critical-success:hover,
+body.sf-cyber-ui .chat-message .card-buttons button.critical-success:hover {
     border-color: #ff00ff60 !important;
     box-shadow: 0 0 15px #ff00ff20, inset 0 0 15px #ff00ff08;
     text-shadow: 0 0 10px #ff00ff60;
     color: #ff00ff !important;
 }
 
-.chat-message .message-buttons button.critical-success::before,
-.chat-message .card-buttons button.critical-success::before {
+body.sf-cyber-ui .chat-message .message-buttons button.critical-success::before,
+body.sf-cyber-ui .chat-message .card-buttons button.critical-success::before {
     background: linear-gradient(90deg, transparent, rgba(255, 0, 255, 0.06), transparent);
 }
 
 /* Success button cue icon */
-.chat-message .message-buttons button .cue {
+body.sf-cyber-ui .chat-message .message-buttons button .cue {
     color: inherit;
     filter: drop-shadow(0 0 3px currentColor);
 }
 
 /* === CHAT CARD (action-card, strike-card, spell-card) === */
 
-.chat-message .pf2e.chat-card .card-header {
+body.sf-cyber-ui .chat-message .pf2e.chat-card .card-header {
     border-bottom: 1px solid #00ffff15;
     padding-bottom: 4px;
 }
 
-.chat-message .pf2e.chat-card .card-header h3 {
+body.sf-cyber-ui .chat-message .pf2e.chat-card .card-header h3 {
     color: #00ffff;
     font-family: 'Racing Sans One', sans-serif;
     text-shadow: 1px 1px 1px #000, 0 0 3px #00ffff25;
     letter-spacing: 0.5px;
 }
 
-.chat-message .pf2e.chat-card .card-header img {
+body.sf-cyber-ui .chat-message .pf2e.chat-card .card-header img {
     border: 1px solid #00ffff30;
     border-radius: 4px;
     box-shadow: 0 0 8px #00ffff15;
 }
 
-.chat-message .pf2e.chat-card .card-content {
+body.sf-cyber-ui .chat-message .pf2e.chat-card .card-content {
     color: #c0c0c0;
     font-family: 'Rajdhani', sans-serif;
 }
 
-.chat-message .pf2e.chat-card footer .tag {
+body.sf-cyber-ui .chat-message .pf2e.chat-card footer .tag {
     background: rgba(0, 255, 255, 0.06) !important;
     border: 1px solid #00ffff25 !important;
     color: #00ffff !important;
@@ -1483,8 +1574,8 @@ body.sf-cyber-ui .window-app .window-header {
 }
 
 /* === HR DIVIDERS IN CHAT === */
-.chat-message hr,
-.chat-message .action-divider {
+body.sf-cyber-ui .chat-message hr,
+body.sf-cyber-ui .chat-message .action-divider {
     border: none;
     height: 1px;
     background: linear-gradient(90deg, transparent, #00ffff20, #ff00ff15, #00ffff20, transparent);
@@ -1492,20 +1583,20 @@ body.sf-cyber-ui .window-app .window-header {
 }
 
 /* === DAMAGE ROLL CARDS === */
-.chat-message .damage-roll .dice-result {
+body.sf-cyber-ui .chat-message .damage-roll .dice-result {
     background: rgba(0, 0, 0, 0.2);
     border: 1px solid #00ffff10;
     border-radius: 8px;
 }
 
-.chat-message .damage-roll .dice-result .dice-total .total {
+body.sf-cyber-ui .chat-message .damage-roll .dice-result .dice-total .total {
     color: #ff8800 !important;
     font-family: 'Racing Sans One', sans-serif;
     text-shadow: 1px 1px 1px #000, 0 0 5px #ff880035;
 }
 
 /* Damage application buttons */
-.chat-message .damage-application button {
+body.sf-cyber-ui .chat-message .damage-application button {
     background: rgba(0, 0, 0, 0.3) !important;
     border: 1px solid #00ffff20 !important;
     color: #00ffff !important;
@@ -1513,47 +1604,47 @@ body.sf-cyber-ui .window-app .window-header {
     transition: all 0.3s ease;
 }
 
-.chat-message .damage-application button:hover {
+body.sf-cyber-ui .chat-message .damage-application button:hover {
     background: rgba(0, 255, 255, 0.08) !important;
     border-color: #00ffff50 !important;
     box-shadow: 0 0 10px #00ffff15;
 }
 
 /* === WHISPER / BLIND messages === */
-.chat-message.whisper {
+body.sf-cyber-ui .chat-message.whisper {
     border-color: #ff00ff30;
     box-shadow: 0 0 10px #ff00ff10, inset 0 0 20px rgba(255, 0, 255, 0.02);
 }
 
-.chat-message.blind {
+body.sf-cyber-ui .chat-message.blind {
     border-color: #ff880030;
     box-shadow: 0 0 10px #ff880010, inset 0 0 20px rgba(255, 136, 0, 0.02);
 }
 
 /* === ROLL-TYPE specific dice tooltip === */
-.chat-message .dice-tooltip .dice .part-header {
+body.sf-cyber-ui .chat-message .dice-tooltip .dice .part-header {
     color: #00ffff;
     font-family: 'Racing Sans One', sans-serif;
     text-shadow: 1px 1px 0px #000;
 }
 
-.chat-message .dice-tooltip .dice .part-total {
+body.sf-cyber-ui .chat-message .dice-tooltip .dice .part-total {
     color: #00ff88;
     font-family: 'Racing Sans One', sans-serif;
 }
 
-.chat-message .dice-tooltip ol.dice-rolls li {
+body.sf-cyber-ui .chat-message .dice-tooltip ol.dice-rolls li {
     background: rgba(0, 0, 0, 0.3);
     border: 1px solid #00ffff10;
     color: #e0e0e0;
 }
 
-.chat-message .dice-tooltip ol.dice-rolls li.max {
+body.sf-cyber-ui .chat-message .dice-tooltip ol.dice-rolls li.max {
     color: #00ff88;
     border-color: #00ff8830;
 }
 
-.chat-message .dice-tooltip ol.dice-rolls li.min {
+body.sf-cyber-ui .chat-message .dice-tooltip ol.dice-rolls li.min {
     color: #ff6666;
     border-color: #ff444430;
 }
@@ -1561,7 +1652,7 @@ body.sf-cyber-ui .window-app .window-header {
 /* --- Button Style: SCOPED al chat y a fichas del módulo --- */
 /* ONLY background, color, border. NO font-family. */
 .sf-cyber-sheet button,
-.chat-message button,
+body.sf-cyber-ui .chat-message button,
 body.sf-cyber-ui #sidebar button {
     background: #083344;
     color: #00f2ff;
@@ -1570,7 +1661,7 @@ body.sf-cyber-ui #sidebar button {
 }
 
 .sf-cyber-sheet button:hover,
-.chat-message button:hover,
+body.sf-cyber-ui .chat-message button:hover,
 body.sf-cyber-ui #sidebar button:hover {
     background: #0e7490;
 }
@@ -1578,8 +1669,6 @@ body.sf-cyber-ui #sidebar button:hover {
 /* ============================================================
    Starfinder Actions Tab - Neon Cyberpunk Theme
    ============================================================ */
-@import url('https://fonts.googleapis.com/css2?family=Racing+Sans+One&family=Rajdhani:wght@300;500&display=swap');
-
 .starfinder-actions {
     background: linear-gradient(145deg, #0a0a0a 0%, #1a0f20 50%, #0d1117 100%);
     border: 1px solid #00ffff20;
@@ -2396,16 +2485,20 @@ body.sf-cyber-ui #sidebar button:hover {
 /* ============================================================
    INVENTORY TAB - Cyberpunk
    ============================================================ */
-.sf-cyber-inventory {
+.sf-cyber-sheet .tab.inventory {
     background: linear-gradient(145deg, #0a0a0a 0%, #0f0a0a 50%, #0d1117 100%);
     border: 1px solid #00ff8820;
     border-radius: 12px;
     padding: 15px;
     overflow: hidden;
     position: relative;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-height: 0;
 }
 
-.sf-cyber-inventory::before {
+.sf-cyber-sheet .tab.inventory::before {
     content: '';
     position: absolute;
     top: 0;
@@ -2417,52 +2510,174 @@ body.sf-cyber-ui #sidebar button:hover {
     z-index: 1;
 }
 
-.sf-cyber-inventory header {
+/* inventory-pane: contenedor principal con scroll */
+.sf-cyber-sheet .tab.inventory .inventory-pane {
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+    overflow-x: hidden;
+    scrollbar-gutter: stable;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    padding-bottom: 100px;
+}
+
+/* Secciones fijas del tab: no deben encoger */
+.sf-cyber-sheet .tab.inventory > .coinage,
+.sf-cyber-sheet .tab.inventory > .inventory-header,
+.sf-cyber-sheet .tab.inventory > .inventory-bottom-summary {
+    flex: 0 0 auto;
+}
+
+/* Headers de sección dentro del inventory-pane */
+.sf-cyber-sheet .tab.inventory .inventory-pane > header {
     border-bottom: 1px solid #00ff8830;
-    padding-bottom: 8px;
-    margin-bottom: 10px;
+    border-top: 1px solid #00ff8820;
+    padding: 8px 6px;
+    margin-bottom: 4px;
+    margin-top: 8px;
+    min-height: 32px;
+    height: auto;
+    background: linear-gradient(90deg, rgba(0,255,136,0.08) 0%, rgba(0,255,136,0.03) 60%, transparent 100%);
+    border-radius: 4px 4px 0 0;
     color: #00ff88;
     font-family: 'Racing Sans One', sans-serif;
     text-shadow: 0 0 8px #00ff8830;
+    letter-spacing: 0.05em;
+    position: relative;
+    flex: 0 0 auto;
+    z-index: 1;
 }
 
-.sf-cyber-inventory .item-list > li,
-.sf-cyber-inventory .directory-list > li {
+.sf-cyber-sheet .tab.inventory .inventory-pane > header:first-child {
+    margin-top: 0;
+}
+
+/* Listas de items: deben crecer y NO colapsar */
+.sf-cyber-sheet .tab.inventory .inventory-pane > ul.items {
+    position: relative;
+    display: block;
+    flex: 0 0 auto;
+    height: auto !important;
+    min-height: auto !important;
+    max-height: none !important;
+    width: 100%;
+    list-style: none;
+    margin: 0;
+    padding: 0 0 12px 0;
+    box-sizing: border-box;
+}
+
+/* Items individuales */
+.sf-cyber-sheet .tab.inventory .item-list > li,
+.sf-cyber-sheet .tab.inventory .directory-list > li,
+.sf-cyber-sheet .tab.inventory .inventory-pane > ul.items > li {
     background: rgba(255, 255, 255, 0.02);
     border: 1px solid rgba(0, 255, 136, 0.1);
     border-radius: 6px;
     margin-bottom: 6px;
-    transition: all 0.3s ease;
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 0;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+    height: auto !important;
+    min-height: 40px !important;
+    box-sizing: border-box;
+    overflow: visible;
 }
 
-.sf-cyber-inventory .item-list > li:hover,
-.sf-cyber-inventory .directory-list > li:hover {
+.sf-cyber-sheet .tab.inventory .item-list > li:hover,
+.sf-cyber-sheet .tab.inventory .directory-list > li:hover,
+.sf-cyber-sheet .tab.inventory .inventory-pane > ul.items > li:hover {
     border-color: #00ff88;
     box-shadow: 0 0 12px #00ff8820;
-    transform: translateX(3px);
 }
 
-.sf-cyber-inventory .item-name h4,
-.sf-cyber-inventory .item-name h3 {
-    color: #e0e0e0;
+/* Listas anidadas (subitems adjuntos y contenido de contenedores abiertos) */
+.sf-cyber-sheet .tab.inventory ul.items.subitems,
+.sf-cyber-sheet .tab.inventory ul.items.container-contents {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: auto !important;
+    max-height: none !important;
+    display: block;
+    box-sizing: border-box;
+}
+
+/* Items dentro de contenedores abiertos o subitems — deben tener altura auto */
+.sf-cyber-sheet .tab.inventory ul.items.subitems > li,
+.sf-cyber-sheet .tab.inventory ul.items.container-contents > li {
+    height: auto !important;
+    min-height: 32px !important;
+    box-sizing: border-box;
+    margin-bottom: 2px;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Contenedor .data dentro del li: debe ser flex para distribuir elementos */
+.sf-cyber-sheet .tab.inventory .inventory-pane > ul.items > li > .data {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    min-height: 32px;
+    height: auto;
+    box-sizing: border-box;
+    padding: 4px 8px;
+    overflow: hidden;
+    gap: 8px;
+}
+
+/* Item name: flex container que respeta altura sin overflow */
+.sf-cyber-sheet .tab.inventory .item-name {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex: 1 1 auto;
+    min-width: 0;
+    height: 100%;
+    overflow: hidden;
+}
+
+.sf-cyber-sheet .tab.inventory .item-name h4,
+.sf-cyber-sheet .tab.inventory .item-name h3 {
+    color: #ffffff;
+    text-shadow: 0 0 4px rgba(255,255,255,0.20);
     font-family: 'Rajdhani', sans-serif;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    flex: 1 1 auto;
+    min-width: 0;
+    line-height: 1.2;
 }
 
-.sf-cyber-inventory .coinage {
+.sf-cyber-sheet .tab.inventory .coinage {
     background: rgba(0, 0, 0, 0.3);
     border: 1px solid #00ff8815;
     border-radius: 8px;
     padding: 8px;
 }
 
-.sf-cyber-inventory .coinage input {
+.sf-cyber-sheet .tab.inventory .coinage input {
     background: rgba(0, 0, 0, 0.4) !important;
     border: 1px solid #00ff8825 !important;
     color: #00ff88 !important;
     font-family: 'Racing Sans One', sans-serif;
 }
 
-.sf-cyber-inventory .encumbrance .encumbrance-bar {
+.sf-cyber-sheet .tab.inventory .encumbrance .encumbrance-bar {
     background: rgba(0, 0, 0, 0.5);
     border: 1px solid #00ff8830;
     border-radius: 4px;
@@ -2736,21 +2951,68 @@ section.feat-section.major > header {
 }
 
 .sf-cyber-proficiencies .name {
-    color: #e0e0e0;
+    color: #ffffff;
     font-family: 'Rajdhani', sans-serif;
+    text-shadow: 0 0 4px rgba(255,255,255,0.25);
 }
 
 .sf-cyber-proficiencies .pf-rank {
-    color: #00ff88;
+    color: #00ffcc;
     font-family: 'Racing Sans One', sans-serif;
     font-size: 0.85em;
+    text-shadow: 0 0 6px rgba(0,255,204,0.50);
 }
 
 .sf-cyber-proficiencies select {
-    background: rgba(0, 0, 0, 0.5) !important;
-    border: 1px solid #00ff8830 !important;
-    color: #00ff88 !important;
+    background: rgba(0, 0, 0, 0.15) !important;
+    border: 1px solid #00ff8860 !important;
+    color: #00ffcc !important;
     border-radius: 4px;
+}
+
+/* UNTRAINED */
+.sf-cyber-proficiencies .pf-rank[data-rank="0"],
+.sf-cyber-proficiencies select[data-rank="0"] {
+    color: #aaaaaa !important;
+    border-color: #55555580 !important;
+    background: rgba(80, 80, 80, 0.12) !important;
+    text-shadow: none !important;
+}
+
+/* TRAINED – Blue */
+.sf-cyber-proficiencies .pf-rank[data-rank="1"],
+.sf-cyber-proficiencies select[data-rank="1"] {
+    color: #66bbff !important;
+    border-color: #4488ff90 !important;
+    background: rgba(0, 140, 255, 0.14) !important;
+    text-shadow: 0 0 6px rgba(0,140,255,0.55) !important;
+}
+
+/* EXPERT – Teal */
+.sf-cyber-proficiencies .pf-rank[data-rank="2"],
+.sf-cyber-proficiencies select[data-rank="2"] {
+    color: #00ffcc !important;
+    border-color: #00dcb490 !important;
+    background: rgba(0, 220, 180, 0.14) !important;
+    text-shadow: 0 0 6px rgba(0,220,180,0.55) !important;
+}
+
+/* MASTER – Gold */
+.sf-cyber-proficiencies .pf-rank[data-rank="3"],
+.sf-cyber-proficiencies select[data-rank="3"] {
+    color: #ffdd44 !important;
+    border-color: #ffb40090 !important;
+    background: rgba(255, 180, 0, 0.14) !important;
+    text-shadow: 0 0 6px rgba(255,180,0,0.55) !important;
+}
+
+/* LEGENDARY – Purple */
+.sf-cyber-proficiencies .pf-rank[data-rank="4"],
+.sf-cyber-proficiencies select[data-rank="4"] {
+    color: #ff88ff !important;
+    border-color: #ff00ff90 !important;
+    background: rgba(255, 0, 255, 0.14) !important;
+    text-shadow: 0 0 8px rgba(255,0,255,0.65) !important;
 }
 
 .sf-cyber-proficiencies .dc {
@@ -4346,10 +4608,11 @@ section.feat-section.major > header {
     box-sizing    : border-box !important;
 }
 
-/* ── 3. Espacio inferior para que el radar no tape las últimas filas ── */
-.sf-cyber-sheet .tab,
-.sf-cyber-sheet section[data-tab],
-.sf-cyber-sheet .crb-style > *:not(aside) {
+/* ── 3. Espacio inferior para que el radar no tape las últimas filas ──
+        Se excluye el tab de inventario (.tab.inventory) porque tiene
+        su propio scroll interno. ── */
+.sf-cyber-sheet .tab:not(.inventory),
+.sf-cyber-sheet section[data-tab]:not([data-tab="inventory"]) {
     padding-bottom : 115px;
     box-sizing     : border-box;
 }
@@ -4376,5 +4639,577 @@ section.feat-section.major > header {
     min-height  : 90px !important;
     padding-top : 10px !important;
     padding-bottom: 10px !important;
+}
+
+/* ============================================================
+   ITEM SUMMARY — Cyberpunk overlay de descripción de items
+   Activo en toda la hoja (inventory, feats, actions, etc.)
+   Selector: .item-summary dentro de .sf-cyber-sheet
+   ============================================================ */
+
+.sf-cyber-sheet .item-summary {
+    background: linear-gradient(135deg,
+        rgba(2, 10, 22, 0.97) 0%,
+        rgba(4, 14, 30, 0.97) 50%,
+        rgba(2, 8, 18, 0.97) 100%
+    ) !important;
+    border: 1px solid rgba(0, 207, 255, 0.22) !important;
+    border-top: 1px solid rgba(0, 255, 136, 0.18) !important;
+    border-radius: 0 0 8px 8px !important;
+    padding: 10px 14px 12px !important;
+    margin-top: 0 !important;
+    font-family: 'Rajdhani', sans-serif !important;
+    color: #c8e6f2 !important;
+    position: relative;
+    overflow: visible !important;
+    box-shadow: inset 0 0 24px rgba(0, 207, 255, 0.04), 0 4px 16px rgba(0, 0, 0, 0.5) !important;
+}
+
+/* Línea superior decorativa */
+.sf-cyber-sheet .item-summary::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 8%;
+    right: 8%;
+    height: 1px;
+    background: linear-gradient(90deg,
+        transparent,
+        rgba(0, 255, 136, 0.35) 25%,
+        rgba(0, 207, 255, 0.50) 50%,
+        rgba(0, 255, 136, 0.35) 75%,
+        transparent
+    );
+    pointer-events: none;
+}
+
+/* ── Sección level / price ───────────────────────────────────── */
+
+.sf-cyber-sheet .item-summary > section {
+    display: flex !important;
+    flex-wrap: wrap;
+    gap: 6px 18px;
+    padding: 4px 0 8px !important;
+    margin-bottom: 8px !important;
+    border-bottom: 1px solid rgba(0, 255, 136, 0.12) !important;
+}
+
+.sf-cyber-sheet .item-summary > section > div {
+    color: #00cfff !important;
+    font-family: 'Racing Sans One', sans-serif !important;
+    font-size: 0.78em !important;
+    letter-spacing: 0.06em !important;
+    text-transform: uppercase !important;
+    text-shadow: 0 0 6px rgba(0, 207, 255, 0.3) !important;
+}
+
+/* Level label (ej. "Item 0") */
+.sf-cyber-sheet .item-summary .level {
+    color: #00ff88 !important;
+    font-family: 'Racing Sans One', sans-serif !important;
+    font-size: 0.78em !important;
+    letter-spacing: 0.06em !important;
+    text-transform: uppercase !important;
+    text-shadow: 0 0 6px rgba(0, 255, 136, 0.3) !important;
+    padding-bottom: 6px !important;
+    margin-bottom: 6px !important;
+    border-bottom: 1px solid rgba(0, 255, 136, 0.12) !important;
+}
+
+/* ── Texto de descripción ────────────────────────────────────── */
+
+.sf-cyber-sheet .item-summary .description {
+    color: #d2eaf5 !important;
+    font-family: 'Rajdhani', sans-serif !important;
+    font-size: 0.95em !important;
+    line-height: 1.58 !important;
+}
+
+.sf-cyber-sheet .item-summary .description p,
+.sf-cyber-sheet .item-summary .description li,
+.sf-cyber-sheet .item-summary .description span:not([class]) {
+    color: #d2eaf5 !important;
+    font-family: 'Rajdhani', sans-serif !important;
+    font-size: 1em !important;
+    line-height: 1.58 !important;
+}
+
+.sf-cyber-sheet .item-summary .description ul,
+.sf-cyber-sheet .item-summary .description ol {
+    padding-left: 1.2em;
+    margin: 4px 0;
+}
+
+.sf-cyber-sheet .item-summary .description strong,
+.sf-cyber-sheet .item-summary .description b {
+    color: #7ee8fa !important;
+    font-weight: 700 !important;
+}
+
+.sf-cyber-sheet .item-summary .description em,
+.sf-cyber-sheet .item-summary .description i:not([class]) {
+    color: #a5d8ef !important;
+    font-style: italic;
+}
+
+.sf-cyber-sheet .item-summary .description h2,
+.sf-cyber-sheet .item-summary .description h3,
+.sf-cyber-sheet .item-summary .description h4 {
+    color: #00ff88 !important;
+    font-family: 'Racing Sans One', sans-serif !important;
+    font-size: 0.9em !important;
+    letter-spacing: 0.04em !important;
+    text-transform: uppercase !important;
+    border-bottom: 1px solid rgba(0, 255, 136, 0.18) !important;
+    margin: 10px 0 4px !important;
+    padding-bottom: 2px !important;
+    text-shadow: 0 0 8px rgba(0, 255, 136, 0.25) !important;
+}
+
+/* ── Links inline (acciones, habilidades, items relacionados) ── */
+
+.sf-cyber-sheet .item-summary a,
+.sf-cyber-sheet .item-summary .description a {
+    color: #00cfff !important;
+    text-decoration: none !important;
+    border-bottom: 1px solid rgba(0, 207, 255, 0.30) !important;
+    transition: color 0.2s, border-color 0.2s, text-shadow 0.2s !important;
+}
+
+.sf-cyber-sheet .item-summary a:hover,
+.sf-cyber-sheet .item-summary .description a:hover {
+    color: #00ff88 !important;
+    border-bottom-color: rgba(0, 255, 136, 0.50) !important;
+    text-shadow: 0 0 6px rgba(0, 255, 136, 0.4) !important;
+}
+
+/* Inline skill/action links renderizados por pf2e EnrichHTML */
+.sf-cyber-sheet .item-summary .description [data-pf2-action],
+.sf-cyber-sheet .item-summary .description [data-pf2-check],
+.sf-cyber-sheet .item-summary .description .inline-roll,
+.sf-cyber-sheet .item-summary .description .content-link {
+    background: rgba(0, 207, 255, 0.10) !important;
+    border: 1px solid rgba(0, 207, 255, 0.30) !important;
+    border-radius: 4px !important;
+    color: #00cfff !important;
+    padding: 1px 6px !important;
+    font-family: 'Rajdhani', sans-serif !important;
+    font-size: 0.88em !important;
+    letter-spacing: 0.03em !important;
+    text-decoration: none !important;
+}
+
+.sf-cyber-sheet .item-summary .description [data-pf2-action]:hover,
+.sf-cyber-sheet .item-summary .description [data-pf2-check]:hover,
+.sf-cyber-sheet .item-summary .description .inline-roll:hover,
+.sf-cyber-sheet .item-summary .description .content-link:hover {
+    background: rgba(0, 255, 136, 0.12) !important;
+    border-color: rgba(0, 255, 136, 0.45) !important;
+    color: #00ff88 !important;
+    box-shadow: 0 0 8px rgba(0, 255, 136, 0.20) !important;
+}
+
+/* Action glyph icons dentro de links */
+.sf-cyber-sheet .item-summary .action-glyph {
+    color: #00cfff !important;
+    font-size: 0.85em !important;
+}
+
+/* ── Notas de GM ─────────────────────────────────────────────── */
+
+.sf-cyber-sheet .item-summary .gm-notes {
+    background: rgba(255, 120, 0, 0.06) !important;
+    border: 1px solid rgba(255, 136, 0, 0.25) !important;
+    border-radius: 5px !important;
+    padding: 6px 10px !important;
+    margin-bottom: 8px !important;
+    color: #ffcc88 !important;
+    font-family: 'Rajdhani', sans-serif !important;
+    font-size: 0.9em !important;
+}
+
+/* ── Trait tags dentro de la descripción ─────────────────────── */
+
+.sf-cyber-sheet .item-summary .tags .tag {
+    background: rgba(0, 207, 255, 0.08) !important;
+    border: 1px solid rgba(0, 207, 255, 0.28) !important;
+    color: #7ee8fa !important;
+    font-family: 'Rajdhani', sans-serif !important;
+    font-size: 0.78em !important;
+    border-radius: 3px !important;
+    padding: 1px 6px !important;
+    letter-spacing: 0.04em !important;
+}
+
+/* ── Botones dentro de la descripción (consumir, atacar, etc.) ── */
+
+.sf-cyber-sheet .item-summary .button-group button,
+.sf-cyber-sheet .item-summary button.blue {
+    background: linear-gradient(135deg, rgba(0, 207, 255, 0.10), rgba(0, 255, 136, 0.06)) !important;
+    border: 1px solid rgba(0, 207, 255, 0.35) !important;
+    border-radius: 6px !important;
+    color: #00cfff !important;
+    font-family: 'Rajdhani', sans-serif !important;
+    font-size: 0.85em !important;
+    letter-spacing: 0.04em !important;
+    padding: 4px 12px !important;
+    cursor: pointer;
+    transition: background 0.2s, border-color 0.2s, box-shadow 0.2s !important;
+    box-shadow: none !important;
+}
+
+.sf-cyber-sheet .item-summary .button-group button:hover,
+.sf-cyber-sheet .item-summary button.blue:hover {
+    background: linear-gradient(135deg, rgba(0, 255, 136, 0.12), rgba(0, 207, 255, 0.10)) !important;
+    border-color: rgba(0, 255, 136, 0.50) !important;
+    color: #00ff88 !important;
+    box-shadow: 0 0 10px rgba(0, 255, 136, 0.18) !important;
+}
+
+/* ============================================================
+   ITEM-DESCRIPTION (strike/action template usa .item-description)
+   Cubre lo que .description no cubre en strikes y acciones
+   ============================================================ */
+
+.sf-cyber-sheet .item-summary .item-description {
+    color: #d2eaf5 !important;
+    font-family: 'Rajdhani', sans-serif !important;
+    font-size: 0.95em !important;
+    line-height: 1.58 !important;
+}
+
+.sf-cyber-sheet .item-summary .item-description p,
+.sf-cyber-sheet .item-summary .item-description li {
+    color: #d2eaf5 !important;
+    font-family: 'Rajdhani', sans-serif !important;
+    line-height: 1.58 !important;
+}
+
+.sf-cyber-sheet .item-summary .item-description strong,
+.sf-cyber-sheet .item-summary .item-description b {
+    color: #7ee8fa !important;
+}
+
+.sf-cyber-sheet .item-summary .item-description em {
+    color: #a5d8ef !important;
+}
+
+.sf-cyber-sheet .item-summary .item-description h2,
+.sf-cyber-sheet .item-summary .item-description h3,
+.sf-cyber-sheet .item-summary .item-description h4 {
+    color: #00ff88 !important;
+    font-family: 'Racing Sans One', sans-serif !important;
+    font-size: 0.88em !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.05em !important;
+    text-shadow: 0 0 8px rgba(0, 255, 136, 0.35) !important;
+    margin: 8px 0 3px !important;
+    border-bottom: none !important;
+}
+
+/* ============================================================
+   VISIBILIDAD GLOBAL — Override completo de texto opaco
+   Afecta TODA la hoja: actions, character, inventory, feats
+   ============================================================ */
+
+/* ── Kill borde rojo del sistema sf2e ───────────────────────── */
+
+.sf-cyber-sheet,
+.sf-cyber-sheet .sheet-body,
+.sf-cyber-sheet .sheet-content {
+    border-image: none !important;
+    outline: none !important;
+}
+
+/* Variables CSS a mayor especificidad para ganar al sistema */
+body.sf-cyber-ui .actor.sheet,
+body.sf-cyber-ui .window-app.sheet,
+body.sf-cyber-ui .sf-cyber-sheet {
+    --color-pf-primary       : #00f2ff;
+    --color-pf-primary-dark  : #083344;
+    --color-pf-primary-darker: #020617;
+    --color-pf-primary-light : #38bdf8;
+    --pf2-header             : #00cfff;
+    --header-color           : #00cfff;
+    --color-border-image     : none;
+    --color-text-dark-primary  : #d2eaf5;
+    --color-text-dark-secondary: #9dcde8;
+    --color-text-dark-tertiary : #7dd3fc;
+    --color-text-dark-0        : #f0f9ff;
+    --color-text-light-primary : #d2eaf5;
+    --color-text-light-secondary: #9dcde8;
+}
+
+/* ── Nombre de armas/acciones (strike template h4.name a) ──── */
+
+.sf-cyber-sheet .strike h4.name,
+.sf-cyber-sheet .strike h4.name a,
+.sf-cyber-sheet .strike section h4,
+.sf-cyber-sheet .strike section h4 a,
+.sf-cyber-sheet .action h4.name,
+.sf-cyber-sheet .action h4.name a {
+    color: #e4f4ff !important;
+    opacity: 1 !important;
+    text-shadow: 0 0 6px rgba(0, 207, 255, 0.20) !important;
+}
+
+/* ── Texto general visible (no sobrescribe colores intencionales) */
+
+.sf-cyber-sheet .tab p,
+.sf-cyber-sheet .tab span:not([class]),
+.sf-cyber-sheet .tab div:not([class]) {
+    color: #d2eaf5;
+}
+
+/* ── Labels en toda la hoja (campos: ANCESTRY, AGE, etc.) ───── */
+
+.sf-cyber-sheet label {
+    color: #7dd3fc !important;
+    opacity: 1 !important;
+}
+
+.sf-cyber-sheet label:not([class]) {
+    font-family: 'Rajdhani', sans-serif !important;
+    letter-spacing: 0.05em !important;
+    font-size: 0.82em !important;
+    text-transform: uppercase !important;
+    text-shadow: 0 0 4px rgba(125, 211, 252, 0.25) !important;
+}
+
+/* ── Valores de campos (Ikeshti, Operative, etc.) ───────────── */
+
+.sf-cyber-sheet .value,
+.sf-cyber-sheet .data-value,
+.sf-cyber-sheet .detail-value {
+    color: #e4f4ff !important;
+    opacity: 1 !important;
+}
+
+/* ── Encabezados de sección con efecto NEON ─────────────────── */
+
+.sf-cyber-sheet .sheet-content h2,
+.sf-cyber-sheet .sheet-content h3:not(.item-name):not(.name),
+.sf-cyber-sheet .tab.active > h2,
+.sf-cyber-sheet .tab.active > h3 {
+    color: #00cfff !important;
+    font-family: 'Racing Sans One', sans-serif !important;
+    text-shadow: 0 0 10px rgba(0, 207, 255, 0.45) !important;
+    opacity: 1 !important;
+}
+
+/* ── Subsección "Languages", "Speeds", "Attribute Modifiers" ── */
+
+.sf-cyber-sheet .tab.character .section-header,
+.sf-cyber-sheet .tab.character h3.header,
+.sf-cyber-sheet .tab.character .subsection-header,
+.sf-cyber-sheet .tab.character > section > header,
+.sf-cyber-sheet .tab.character > div > h3,
+.sf-cyber-sheet .tab.character > div > h2 {
+    color: #00ff88 !important;
+    font-family: 'Racing Sans One', sans-serif !important;
+    text-shadow: 0 0 8px rgba(0, 255, 136, 0.40) !important;
+    opacity: 1 !important;
+    border-bottom: 1px solid rgba(0, 255, 136, 0.18) !important;
+    padding-bottom: 2px !important;
+}
+
+/* ── Velocidades (Land, Swim, Climb, Fly, Burrow) ───────────── */
+
+.sf-cyber-sheet .speeds .value,
+.sf-cyber-sheet .speeds label,
+.sf-cyber-sheet .movement .value,
+.sf-cyber-sheet .movement label {
+    color: #e4f4ff !important;
+    opacity: 1 !important;
+}
+
+/* ── Atributos en Character tab (STR, DEX, CON, etc.) ──────── */
+
+.sf-cyber-sheet .attribute .modifier,
+.sf-cyber-sheet .attribute-modifier,
+.sf-cyber-sheet .attribute .value {
+    color: #e4f4ff !important;
+    opacity: 1 !important;
+}
+
+/* ── Links y valores editables ───────────────────────────────── */
+
+.sf-cyber-sheet .tab a:not([class]),
+.sf-cyber-sheet .tab a.value {
+    color: #7dd3fc !important;
+    opacity: 1 !important;
+}
+
+.sf-cyber-sheet .tab a:not([class]):hover,
+.sf-cyber-sheet .tab a.value:hover {
+    color: #00ff88 !important;
+    text-shadow: 0 0 6px rgba(0, 255, 136, 0.35) !important;
+}
+
+/* ── Inputs de texto/número editables ───────────────────────── */
+
+.sf-cyber-sheet .tab input[type="text"]:not([class]),
+.sf-cyber-sheet .tab input.value {
+    color: #e4f4ff !important;
+    opacity: 1 !important;
+}
+
+/* ── Texto de trait/property tags en strikes y acciones ─────── */
+
+.sf-cyber-sheet .item-properties.tags .tag,
+.sf-cyber-sheet .strike .item-properties .tag,
+.sf-cyber-sheet .action .item-properties .tag {
+    color: #7ee8fa !important;
+    opacity: 1 !important;
+}
+
+/* ── Textos "Critical Success", "Success", "Failure" ────────── */
+
+.sf-cyber-sheet .item-summary strong,
+.sf-cyber-sheet .item-description strong {
+    color: #7ee8fa !important;
+    opacity: 1 !important;
+}
+
+/* ============================================================
+   NEON OVERRIDE GLOBAL — Textos vividos, headers holográficos
+   Estas reglas van AL FINAL para máxima prioridad en cascada.
+   Usan selectores amplios (sin >) para cubrir la estructura
+   real del HTML de PF2e/SF2e independiente de su anidamiento.
+   ============================================================ */
+
+/* ── Texto general de la hoja: blanco puro con glow suave ── */
+.sf-cyber-sheet {
+    color: #e8f4ff !important;
+}
+
+/* ── Todos los h1-h4 de la hoja: cyan neon ───────────────── */
+.sf-cyber-sheet h1,
+.sf-cyber-sheet h2:not(.item-group-title),
+.sf-cyber-sheet h3:not(.item-name):not(.action-name),
+.sf-cyber-sheet h4:not(.item-name):not(.action-name) {
+    color: #00cfff !important;
+    text-shadow: 0 0 8px rgba(0,207,255,0.45), 0 0 2px rgba(0,207,255,0.20) !important;
+    opacity: 1 !important;
+}
+
+/* ── Nombres de items (h3/h4 con clase item-name o action-name) ─ */
+.sf-cyber-sheet h3.item-name,
+.sf-cyber-sheet h4.item-name,
+.sf-cyber-sheet .item-name h3,
+.sf-cyber-sheet .item-name h4,
+.sf-cyber-sheet .item-name > a,
+.sf-cyber-sheet .item-name span,
+.sf-cyber-sheet h3.action-name,
+.sf-cyber-sheet h4.action-name,
+.sf-cyber-sheet .item-group-title {
+    color: #ffffff !important;
+    text-shadow: 0 0 4px rgba(255,255,255,0.25) !important;
+    opacity: 1 !important;
+}
+
+/* ── Headers de sección del inventario (Weapons & Shields, Armor…) ─
+   PF2e usa header, h2 o h3 dentro de .item-container o .item-group.
+   Sin > para alcanzar cualquier nivel de anidamiento.             */
+.sf-cyber-sheet .tab.inventory header,
+.sf-cyber-sheet .tab.inventory .item-container header,
+.sf-cyber-sheet .tab.inventory .item-group header,
+.sf-cyber-sheet .tab.inventory .item-group h3,
+.sf-cyber-sheet .tab.inventory .item-group h2,
+.sf-cyber-sheet .tab.inventory .item-group-header,
+.sf-cyber-sheet .tab.inventory .inventory-list-header,
+.sf-cyber-sheet .tab.inventory .container-header {
+    background: linear-gradient(90deg,
+        rgba(0,255,136,0.10) 0%,
+        rgba(0,255,136,0.04) 60%,
+        transparent 100%) !important;
+    border-bottom: 1px solid #00ff8840 !important;
+    border-top: 1px solid #00ff8820 !important;
+    color: #00ff88 !important;
+    font-family: 'Racing Sans One', sans-serif !important;
+    text-shadow: 0 0 8px rgba(0,255,136,0.50) !important;
+    letter-spacing: 0.05em !important;
+    padding: 6px 8px !important;
+    opacity: 1 !important;
+}
+
+/* ── Labels de columna QUANTITY / BULK dentro del header ──── */
+.sf-cyber-sheet .tab.inventory header .label,
+.sf-cyber-sheet .tab.inventory header span:not(.item-name),
+.sf-cyber-sheet .tab.inventory .item-group-header .label {
+    color: #00ff8888 !important;
+    font-size: 0.75em !important;
+    letter-spacing: 0.08em !important;
+    text-shadow: none !important;
+}
+
+/* ── Headers de Actions tab (Attacks, Actions, Reactions…) ── */
+.sf-cyber-sheet .tab.actions header,
+.sf-cyber-sheet .tab.actions .strikes-header,
+.sf-cyber-sheet .tab.actions .actions-header,
+.sf-cyber-sheet .tab.actions h2,
+.sf-cyber-sheet .tab.actions h3:not(.item-name) {
+    background: linear-gradient(90deg,
+        rgba(0,207,255,0.10) 0%,
+        rgba(0,207,255,0.04) 60%,
+        transparent 100%) !important;
+    border-bottom: 1px solid #00cfff40 !important;
+    color: #00cfff !important;
+    font-family: 'Racing Sans One', sans-serif !important;
+    text-shadow: 0 0 8px rgba(0,207,255,0.50) !important;
+    padding: 5px 8px !important;
+    opacity: 1 !important;
+}
+
+/* ── Nombres de strikes/acciones en el Actions tab ───────── */
+.sf-cyber-sheet .tab.actions .item-name a,
+.sf-cyber-sheet .tab.actions .item-name h3,
+.sf-cyber-sheet .tab.actions .item-name h4,
+.sf-cyber-sheet .tab.actions .strike-name,
+.sf-cyber-sheet .tab.actions .action-name {
+    color: #e8f4ff !important;
+    text-shadow: 0 0 3px rgba(232,244,255,0.20) !important;
+    opacity: 1 !important;
+}
+
+/* ── Chat messages: texto base más brillante ─────────────── */
+body.sf-cyber-ui .chat-message {
+    color: #e8f4ff !important;
+}
+body.sf-cyber-ui .chat-message .message-sender {
+    color: #00cfff !important;
+    text-shadow: 0 0 6px rgba(0,207,255,0.45) !important;
+}
+
+/* ── Inputs y selects en la hoja: texto visible ──────────── */
+.sf-cyber-sheet input[type="text"],
+.sf-cyber-sheet input[type="number"] {
+    color: #e8f4ff !important;
+}
+.sf-cyber-sheet select {
+    color: #e8f4ff !important;
+}
+
+/* ── Labels genéricos de la hoja ─────────────────────────── */
+.sf-cyber-sheet label {
+    color: #7dd3fc !important;
+    opacity: 1 !important;
+}
+
+/* ── Valores numéricos y data-value ──────────────────────── */
+.sf-cyber-sheet .value,
+.sf-cyber-sheet .data-value,
+.sf-cyber-sheet [class*="modifier"],
+.sf-cyber-sheet .bonus,
+.sf-cyber-sheet .penalty {
+    color: #e8f4ff !important;
+    opacity: 1 !important;
+}
+
+/* ── Texto dentro de tabs generales (p, span, div sin clase) ─ */
+.sf-cyber-sheet .tab p,
+.sf-cyber-sheet .tab li:not(.item) {
+    color: #d0e8ff !important;
+    opacity: 1 !important;
 }
 

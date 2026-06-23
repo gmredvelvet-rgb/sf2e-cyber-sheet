@@ -26,6 +26,8 @@ Hooks.once('setup', async () => {
         if (licensed) {
             try { await game.settings.set(MODULE_ID, 'worldLicensed', true); } catch { /* ignore */ }
         } else {
+            // Limpiar flag para que jugadores tampoco activen el módulo
+            try { await game.settings.set(MODULE_ID, 'worldLicensed', false); } catch { /* ignore */ }
             Hooks.once('ready', () => SF2eLicenseUI.show());
         }
     }

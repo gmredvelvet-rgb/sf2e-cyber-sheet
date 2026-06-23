@@ -89,41 +89,54 @@ function centerWindow(app, windowEl) {
     }
 }
 
-// ── Estado global ─────────────────────────────────────────────────────────
-let _idleWrap   = null;
-let _sheetAudio = null;
-let _clickAudio = null;
+// ── Estado por ventana ────────────────────────────────────────────────────
+// WeakMap: GC automático cuando la ventana sale del DOM; soporta múltiples fichas simultáneas
+const _holoState = new WeakMap();
+
+function _getState(windowEl) {
+    if (!_holoState.has(windowEl)) {
+        _holoState.set(windowEl, { idleWrap: null, audio: null, fadeInterval: null });
+    }
+    return _holoState.get(windowEl);
+}
+
+let _clickAudio = null;   // singleton one-shot — no necesita estado por ventana
 
 // ── Audio helpers ──────────────────────────────────────────────────────────
 
-function startSheetAudio() {
-    if (_sheetAudio) return;
-    const audio = new Audio(`${SND_BASE}/sheetaudio.mp3`);
+function startSheetAudio(windowEl) {
+    const state = _getState(windowEl);
+    if (state.audio) return;
+
+    const audio  = new Audio(`${SND_BASE}/sheetaudio.mp3`);
     audio.loop   = true;
     audio.volume = 0;
-    _sheetAudio  = audio;
+    state.audio  = audio;
     audio.play().catch(() => {});
 
-    // Fade-in suave en 1.2 s
     const target = 0.28;
     const step   = target / 24;
-    const fadeIn = setInterval(() => {
-        if (!_sheetAudio || _sheetAudio !== audio) { clearInterval(fadeIn); return; }
+    state.fadeInterval = setInterval(() => {
+        if (state.audio !== audio) { clearInterval(state.fadeInterval); state.fadeInterval = null; return; }
         audio.volume = Math.min(audio.volume + step, target);
-        if (audio.volume >= target) clearInterval(fadeIn);
+        if (audio.volume >= target) { clearInterval(state.fadeInterval); state.fadeInterval = null; }
     }, 50);
 }
 
-function stopSheetAudio() {
-    if (!_sheetAudio) return;
-    const audio = _sheetAudio;
-    _sheetAudio  = null;
+function stopSheetAudio(windowEl) {
+    const state = _getState(windowEl);
+    if (!state.audio) return;
 
-    // Fade-out en 0.6 s y luego detener
-    const fadeOut = setInterval(() => {
+    if (state.fadeInterval) { clearInterval(state.fadeInterval); state.fadeInterval = null; }
+
+    const audio = state.audio;
+    state.audio = null;
+
+    state.fadeInterval = setInterval(() => {
         audio.volume = Math.max(0, audio.volume - 0.05);
         if (audio.volume <= 0) {
-            clearInterval(fadeOut);
+            clearInterval(state.fadeInterval);
+            state.fadeInterval = null;
             audio.pause();
         }
     }, 30);
@@ -132,7 +145,7 @@ function stopSheetAudio() {
 function playClickSound() {
     if (!_clickAudio) {
         _clickAudio = new Audio(`${SND_BASE}/click.mp3`);
-        _clickAudio.volume = 0.60;
+        _clickAudio.volume = 0.6;
     }
     _clickAudio.currentTime = 0;
     _clickAudio.play().catch(() => {});
@@ -183,17 +196,18 @@ async function openHologram(app, windowEl) {
     windowEl.dataset.holoState = 'idle';
 
     // 6 ─ Arrancar audio ambiental
-    startSheetAudio();
+    startSheetAudio(windowEl);
 
     // 7 ─ Esperar que open.webm termine COMPLETAMENTE antes de arrancar idle
     await openDone;
     openWrap.remove();
 
     // Guardia: no arrancar idle si la hoja ya se cerró
-    if (!_idleWrap && windowEl.isConnected && windowEl.dataset.holoState === 'idle') {
+    const state = _getState(windowEl);
+    if (!state.idleWrap && windowEl.isConnected && windowEl.dataset.holoState === 'idle') {
         const { wrap: iw } = cornerVideo(`${IMG_BASE}/idle.webm`, true);
-        _idleWrap = iw;
-        document.body.appendChild(_idleWrap);
+        state.idleWrap = iw;
+        document.body.appendChild(state.idleWrap);
     }
 }
 
@@ -201,8 +215,9 @@ async function openHologram(app, windowEl) {
 
 async function closeHologram(windowEl) {
     // Detener idle y audio inmediatamente
-    if (_idleWrap) { _idleWrap.remove(); _idleWrap = null; }
-    stopSheetAudio();
+    const state = _getState(windowEl);
+    if (state.idleWrap) { state.idleWrap.remove(); state.idleWrap = null; }
+    stopSheetAudio(windowEl);
 
     // Colapsar la ventana
     if (windowEl) {
@@ -217,6 +232,7 @@ async function closeHologram(windowEl) {
 // ── Foundry hooks ─────────────────────────────────────────────────────────
 
 Hooks.on('renderActorSheet', (app, html, _data) => {
+    if (!game.settings.get?.('sf2e-cyber-sheet', 'worldLicensed')) return;
     if (app.actor?.type !== 'character') return;
 
     const windowEl = getWindowEl(app);

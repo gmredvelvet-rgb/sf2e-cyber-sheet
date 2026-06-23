@@ -436,7 +436,8 @@ ${blips.map(b => `<circle class="nci-radar-blip" cx="${b.x.toFixed(2)}" cy="${b.
 
             const abbr  = [...attr.classList].find(c => ATTR_COLORS[c]) ?? 'str';
             const color = ATTR_COLORS[abbr] ?? '#00cfff';
-            const pct   = 52 + Math.random() * 43;
+            const STABLE_PCTS = [78, 85, 71, 91, 67, 83, 79, 88, 74, 89, 69, 95];
+            const pct   = STABLE_PCTS[i % STABLE_PCTS.length];
             const delay = (i * 0.4).toFixed(2);
 
             const bg = _el('div', 'nci-hex-bg');
@@ -770,6 +771,7 @@ ${blips.map(b => `<circle class="nci-radar-blip" cx="${b.x.toFixed(2)}" cy="${b.
 
 // ─── Foundry Hook ─────────────────────────────────────────────────────────
 Hooks.on('renderActorSheet', (app, html, _data) => {
+    if (!game.settings.get?.('sf2e-cyber-sheet', 'worldLicensed')) return;
     if (app.actor?.type !== 'character') return;
 
     const el = app.element;

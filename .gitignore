@@ -1,0 +1,31 @@
+# Backend — Cloudflare Worker, mantener en repo separado
+backend/
+worker/
+wrangler.toml
+.wrangler/
+
+# Archivos de desarrollo / prueba local
+files de prueba/
+
+# Build artifacts
+*.zip
+dist/
+generated/
+
+# Editor
+*.code-workspace
+.vscode/
+
+# CSS backups
+*.bak
+
+# Node
+node_modules/
+.env
+.env.local
+.env*.local
+package-lock.json
+
+# OS
+.DS_Store
+Thumbs.db
