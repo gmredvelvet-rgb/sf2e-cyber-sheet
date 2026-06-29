@@ -386,10 +386,12 @@ body.sf-cyber-ui .actor.sheet {
 }
 
 .actor.sheet.character section.window-content .crb-style {
-  --logo: url("../assets/starfinder_logo.webp");
   background: #020617;
   background-size: 100% 5.625rem, auto;
   background-repeat: repeat-x, repeat;
+}
+body.system-sf2e .actor.sheet.character section.window-content .crb-style {
+  --logo: url("../assets/starfinder_logo.webp");
 }
 .actor.sheet.character section.window-content .crb-style > header.char-header .level {
   filter: hue-rotate(240deg) brightness(1.1);
@@ -5211,5 +5213,229 @@ body.sf-cyber-ui .chat-message .message-sender {
 .sf-cyber-sheet .tab li:not(.item) {
     color: #d0e8ff !important;
     opacity: 1 !important;
+}
+
+/* ================================================================
+   COMPATIBILIDAD PF2E — Tema cyberpunk completo para Pathfinder 2e
+   PF2e define variables CSS y colores de componente con mayor
+   especificidad que body.sf-cyber-ui. Esta sección los reaplica
+   al nivel del form para que la paleta cyberpunk gane.
+   No afecta SF2e porque ambos usan la misma estructura .crb-style.
+   ================================================================ */
+
+/* 1 — Variables CSS al nivel del form (mayor especificidad que body).
+   Sin esto, los componentes del sidebar de PF2e pueden ignorar los
+   overrides del body y mantener sus colores púrpura/azul nativos. */
+body.sf-cyber-ui .actor.sheet.character section.window-content .crb-style {
+  --color-pf-primary          : #00f2ff;
+  --color-pf-primary-dark     : #083344;
+  --color-pf-primary-darker   : #020617;
+  --color-pf-primary-light    : #38bdf8;
+  --color-pf-primary-lighter  : #7dd3fc;
+  --color-pf-secondary        : #1e1b4b;
+  --color-pf-secondary-dark   : #0f172a;
+  --color-pf-secondary-light  : #334155;
+  --color-pf-secondary-lighter: #475569;
+  --text-dark                 : #00f2ff;
+  --text-light                : #e0f2fe;
+  --color-text-dark-input     : #00f2ff;
+  --color-text-light-0        : #f0f9ff;
+  --bg                        : #020617;
+  --bg-dark                   : #000000;
+  --primary-background        : #020617;
+  --secondary-background      : #083344;
+  --tertiary-background       : #1e293b;
+  --alternate-background      : #334155;
+  --color-bg-trait            : #0f172a;
+  --color-border-trait        : #38bdf8;
+  --color-proficiency-trained   : #0e7490;
+  --color-proficiency-expert    : #0369a1;
+  --color-proficiency-master    : #1d4ed8;
+  --color-proficiency-legendary : #4338ca;
+  --color-scrollbar             : #00f2ff;
+}
+
+/* 2 — Sidebar aside: forzar fondo oscuro + banner gif (gana sobre CSS nativo de PF2e) */
+body.sf-cyber-ui .actor.sheet.character section.window-content .crb-style aside {
+  background-image    : url("../assets/sheet/Sidebaner1.gif") !important;
+  background-color    : #0f172a !important;
+  border-right        : 1px solid #38bdf8 !important;
+  background-repeat   : no-repeat !important;
+  background-position : center top !important;
+  background-size     : 100% 100% !important;
+}
+
+/* 3 — Fondo transparente en secciones del sidebar.
+   PF2e aplica fondos coloreados a .hit-points, .armor-class, etc. */
+body.sf-cyber-ui .sf-cyber-sheet .sheet-sidebar section,
+body.sf-cyber-ui .sf-cyber-sheet aside section {
+  background-color : transparent !important;
+  background-image : none !important;
+}
+
+/* 4 — Inputs numéricos del sidebar (HP, AC, valores): oscuro con borde cian */
+body.sf-cyber-ui .sf-cyber-sheet .sheet-sidebar input[type="number"],
+body.sf-cyber-ui .sf-cyber-sheet aside input[type="number"] {
+  background    : rgba(0, 0, 0, 0.55) !important;
+  color         : #ffffff !important;
+  text-shadow   : 0 0 8px #00ffff !important;
+  border        : 1px solid rgba(0, 242, 255, 0.25) !important;
+  border-radius : 4px !important;
+  box-shadow    : none !important;
+}
+body.sf-cyber-ui .sf-cyber-sheet .sheet-sidebar input[type="number"]:focus,
+body.sf-cyber-ui .sf-cyber-sheet aside input[type="number"]:focus {
+  border-color : #00f2ff !important;
+  box-shadow   : 0 0 8px rgba(0, 242, 255, 0.4) !important;
+  outline      : none !important;
+}
+
+/* 5 — Contenedor Current HP: quitar el fondo rojo de PF2e */
+body.sf-cyber-ui .sf-cyber-sheet .current-hp,
+body.sf-cyber-ui .sf-cyber-sheet [class*="current-hp"],
+body.sf-cyber-ui .sf-cyber-sheet .hp-current {
+  background    : rgba(0, 0, 0, 0.55) !important;
+  border        : 1px solid rgba(0, 242, 255, 0.30) !important;
+  border-radius : 4px !important;
+  box-shadow    : 0 0 8px rgba(0, 242, 255, 0.12) !important;
+}
+
+/* 6 — Badge AC / escudo: quitar el degradado púrpura de PF2e */
+body.sf-cyber-ui .sf-cyber-sheet .armor-class .value,
+body.sf-cyber-ui .sf-cyber-sheet [class*="armor-class"] .value,
+body.sf-cyber-ui .sf-cyber-sheet .ac-value,
+body.sf-cyber-ui .sf-cyber-sheet a.ac-value {
+  background    : rgba(0, 0, 0, 0.60) !important;
+  border        : 2px solid rgba(170, 85, 255, 0.50) !important;
+  box-shadow    : 0 0 14px rgba(170, 85, 255, 0.28), inset 0 0 10px rgba(0, 0, 0, 0.5) !important;
+  color         : #ffffff !important;
+  text-shadow   : 0 0 14px #aa55ff !important;
+}
+
+/* 7 — Shield HP badge */
+body.sf-cyber-ui .sf-cyber-sheet .shield-hp,
+body.sf-cyber-ui .sf-cyber-sheet [class*="shield-hp"],
+body.sf-cyber-ui .sf-cyber-sheet .max-shield-hp {
+  background  : rgba(0, 0, 0, 0.55) !important;
+  border      : 1px solid rgba(0, 242, 255, 0.25) !important;
+  color       : #88ddff !important;
+  text-shadow : 0 0 6px rgba(0, 242, 255, 0.35) !important;
+}
+
+/* Estado roto del escudo */
+body.sf-cyber-ui .sf-cyber-sheet .broken input,
+body.sf-cyber-ui .sf-cyber-sheet .broken .value,
+body.sf-cyber-ui .sf-cyber-sheet .shield-broken {
+  color       : #ff4444 !important;
+  text-shadow : 0 0 8px rgba(255, 68, 68, 0.6) !important;
+}
+
+/* 8 — Tags de proficiencia en el sidebar (TRAINED / EXPERT / MASTER / LEGENDARY) */
+body.sf-cyber-ui .sf-cyber-sheet .sheet-sidebar .tag,
+body.sf-cyber-ui .sf-cyber-sheet aside .tag {
+  background  : rgba(0, 0, 0, 0.60) !important;
+  border      : 1px solid rgba(0, 242, 255, 0.35) !important;
+  color       : #00f2ff !important;
+  text-shadow : 0 0 5px rgba(0, 242, 255, 0.55) !important;
+  box-shadow  : none !important;
+}
+body.sf-cyber-ui .sf-cyber-sheet .sheet-sidebar .tag[data-slug="trained"],
+body.sf-cyber-ui .sf-cyber-sheet aside .tag[data-slug="trained"] {
+  border-color : rgba(0, 140, 255, 0.55) !important;
+  color        : #44aaff !important;
+  text-shadow  : 0 0 6px rgba(0, 140, 255, 0.65) !important;
+}
+body.sf-cyber-ui .sf-cyber-sheet .sheet-sidebar .tag[data-slug="expert"],
+body.sf-cyber-ui .sf-cyber-sheet aside .tag[data-slug="expert"] {
+  border-color : rgba(0, 220, 180, 0.55) !important;
+  color        : #00ffcc !important;
+  text-shadow  : 0 0 6px rgba(0, 220, 180, 0.65) !important;
+}
+body.sf-cyber-ui .sf-cyber-sheet .sheet-sidebar .tag[data-slug="master"],
+body.sf-cyber-ui .sf-cyber-sheet aside .tag[data-slug="master"] {
+  border-color : rgba(255, 180, 0, 0.55) !important;
+  color        : #ffcc44 !important;
+  text-shadow  : 0 0 6px rgba(255, 180, 0, 0.65) !important;
+}
+body.sf-cyber-ui .sf-cyber-sheet .sheet-sidebar .tag[data-slug="legendary"],
+body.sf-cyber-ui .sf-cyber-sheet aside .tag[data-slug="legendary"] {
+  border-color : rgba(255, 0, 255, 0.55) !important;
+  color        : #ff88ff !important;
+  text-shadow  : 0 0 8px rgba(255, 0, 255, 0.70) !important;
+}
+
+/* 9 — Texto base del sidebar: reemplazar colores nativos de PF2e */
+body.sf-cyber-ui .sf-cyber-sheet .sheet-sidebar,
+body.sf-cyber-ui .sf-cyber-sheet aside {
+  color : #e0f2fe !important;
+}
+body.sf-cyber-ui .sf-cyber-sheet .sheet-sidebar h2,
+body.sf-cyber-ui .sf-cyber-sheet .sheet-sidebar h3,
+body.sf-cyber-ui .sf-cyber-sheet aside h2,
+body.sf-cyber-ui .sf-cyber-sheet aside h3 {
+  background              : linear-gradient(90deg, #00cfff 0%, #a100ff 100%) !important;
+  -webkit-background-clip : text !important;
+  background-clip         : text !important;
+  -webkit-text-fill-color : transparent !important;
+  text-shadow             : none !important;
+  border-bottom           : none !important;
+}
+body.sf-cyber-ui .sf-cyber-sheet .sheet-sidebar label,
+body.sf-cyber-ui .sf-cyber-sheet aside label {
+  color          : #00ffff !important;
+  text-shadow    : 0 0 5px rgba(0, 255, 255, 0.75) !important;
+  font-size      : 10px !important;
+  letter-spacing : 0.5px !important;
+  text-transform : uppercase !important;
+}
+body.sf-cyber-ui .sf-cyber-sheet .sheet-sidebar .value,
+body.sf-cyber-ui .sf-cyber-sheet .sheet-sidebar span.value,
+body.sf-cyber-ui .sf-cyber-sheet aside .value {
+  color       : #ffffff !important;
+  text-shadow : 0 0 8px #00ffff !important;
+}
+body.sf-cyber-ui .sf-cyber-sheet .sheet-sidebar .modifier,
+body.sf-cyber-ui .sf-cyber-sheet aside .modifier {
+  color       : #ffffff !important;
+  text-shadow : 0 0 8px #00ffff, 0 0 15px rgba(0, 255, 255, 0.8) !important;
+}
+
+/* 10 — Saves: FORT naranja / REF verde / WILL violeta */
+body.sf-cyber-ui .sf-cyber-sheet [class*="fortitude"] .modifier,
+body.sf-cyber-ui .sf-cyber-sheet [class*="fortitude"] .value,
+body.sf-cyber-ui .sf-cyber-sheet [data-attribute="fortitude"] .modifier {
+  color       : #ff6633 !important;
+  text-shadow : 0 0 8px rgba(255, 102, 51, 0.65) !important;
+}
+body.sf-cyber-ui .sf-cyber-sheet [class*="reflex"] .modifier,
+body.sf-cyber-ui .sf-cyber-sheet [class*="reflex"] .value,
+body.sf-cyber-ui .sf-cyber-sheet [data-attribute="reflex"] .modifier {
+  color       : #00ff88 !important;
+  text-shadow : 0 0 8px rgba(0, 255, 136, 0.65) !important;
+}
+body.sf-cyber-ui .sf-cyber-sheet [class*="will"] .modifier,
+body.sf-cyber-ui .sf-cyber-sheet [class*="will"] .value,
+body.sf-cyber-ui .sf-cyber-sheet [data-attribute="will"] .modifier {
+  color       : #aa88ff !important;
+  text-shadow : 0 0 8px rgba(170, 136, 255, 0.65) !important;
+}
+
+/* 11 — Tags de sentidos (Low-Light Vision, etc.) */
+body.sf-cyber-ui .sf-cyber-sheet .sheet-sidebar .senses .tag,
+body.sf-cyber-ui .sf-cyber-sheet aside .senses .tag {
+  background    : rgba(0, 50, 80, 0.55) !important;
+  border        : 1px solid rgba(0, 207, 255, 0.40) !important;
+  color         : #00cfff !important;
+  text-shadow   : 0 0 5px rgba(0, 207, 255, 0.50) !important;
+  border-radius : 4px !important;
+}
+
+/* 12 — Selects del sidebar (initiative stat selector, etc.) */
+body.sf-cyber-ui .sf-cyber-sheet .sheet-sidebar select,
+body.sf-cyber-ui .sf-cyber-sheet aside select {
+  background : rgba(0, 0, 0, 0.55) !important;
+  border     : 1px solid rgba(0, 242, 255, 0.25) !important;
+  color      : #00f2ff !important;
+  box-shadow : none !important;
 }
 
