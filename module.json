@@ -2,7 +2,7 @@
   "id": "sf2e-cyber-sheet",
   "title": "SF2e / PF2e Cyberpunk UI",
   "description": "Modificación visual y funcional cyberpunk para SF2e y PF2e.",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "compatibility": {
     "minimum": "12",
     "verified": "13"
