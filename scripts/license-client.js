@@ -449,6 +449,11 @@ export class SF2eLicenseUI {
       <p style="font-size:.85rem;color:#7aaecc;margin-bottom:16px;line-height:1.4">
         Connect your Patreon account to enable premium features.
       </p>
+      <div style="margin-bottom:12px;padding:10px 12px;border-radius:6px;
+                  border:1px solid #c89b3c55;background:#c89b3c14;font-size:.85rem;line-height:1.45">
+        <strong style="color:#c89b3c">Why am I being asked to reconnect?</strong><br/>
+        We changed how Patreon subscriptions are verified, so activations made before the change no longer validate. Reconnecting your account once puts it right. This is not a new charge and not a price change: your Patreon subscription is untouched, you will not be billed again, and you keep your installation slots. Only the authorisation is renewed.
+      </div>
       <div style="display:flex;flex-direction:column;gap:8px">
         <button id="sf2e-connect-btn" style="
           background:#00cfff;color:#050d18;border:none;border-radius:8px;
@@ -493,6 +498,11 @@ export class SF2eLicenseUI {
     new Dialog({
       title: 'SF2E Cyber Sheet — Enter Auth Code',
       content: `
+        <div style="margin-bottom:12px;padding:10px 12px;border-radius:6px;
+                    border:1px solid #c89b3c55;background:#c89b3c14;font-size:.85rem;line-height:1.45">
+          <strong style="color:#c89b3c">Why am I being asked to reconnect?</strong><br/>
+          We changed how Patreon subscriptions are verified, so activations made before the change no longer validate. Reconnecting your account once puts it right. This is not a new charge and not a price change: your Patreon subscription is untouched, you will not be billed again, and you keep your installation slots. Only the authorisation is renewed.
+        </div>
         <p style="margin-bottom:12px;font-size:.9rem">
           Paste the code shown after connecting your Patreon account.
         </p>
