@@ -71,7 +71,15 @@ export class SF2eLicenseClient {
         await this.#doRefresh();
         this.#startHeartbeat();
         return true;
-      } catch {
+      } catch (e) {
+        // A transient outage must never destroy a valid licence: keep the
+        // credentials so the heartbeat can recover once the server is back.
+        // The unconditional clear here meant that loading a world while
+        // offline cost the GM their licence and a full re-authorisation.
+        if (this.#isTransient(e)) {
+          this.#startHeartbeat();
+          return false;
+        }
         this.#clearStoredTokens();
       }
     }
@@ -248,7 +256,26 @@ export class SF2eLicenseClient {
 
   // ── Internal: refresh ───────────────────────────────────────────────────────
 
+  // Serialises token rotation. The server revokes the old refresh token the
+  // moment it is used and treats a second presentation as reuse — a critical
+  // SECURITY_VIOLATION that revokes the whole token family. Two overlapping
+  // refreshes were enough to trigger it and push the GM back through Patreon.
+  #refreshInFlight = null;
+
   async #doRefresh() {
+    this.#refreshInFlight ??= this.#doRefreshOnce()
+      .finally(() => { this.#refreshInFlight = null; });
+    return this.#refreshInFlight;
+  }
+
+  // Transport hiccups are safe to retry and must never destroy tokens;
+  // anything else is a definitive verdict from the licence server.
+  #isTransient(e) {
+    if (!(e instanceof LicenseError)) return true;
+    return ['NETWORK_ERROR', 'INTERNAL_ERROR', 'RATE_LIMITED', 'NOT_FOUND', 'API_ERROR'].includes(e.code);
+  }
+
+  async #doRefreshOnce() {
     const result = await this.#apiCall('/token/refresh', {
       refreshToken:    this.#refreshToken,
       fingerprintHash: this.#fingerprint
@@ -332,7 +359,14 @@ export class SF2eLicenseClient {
     }
 
     const url  = `${API_BASE}${endpoint}`;
-    const resp = await fetch(url, init);
+    // fetch() rejects on DNS failure / offline / server down — a transport
+    // problem, never an auth verdict. Callers must not burn tokens over it.
+    let resp;
+    try {
+      resp = await fetch(url, init);
+    } catch {
+      throw new LicenseError('License server unreachable', 'NETWORK_ERROR');
+    }
 
     if (!resp.ok) {
       const err = await resp.json().catch(() => ({ error: 'Network error', code: 'NETWORK_ERROR' }));
